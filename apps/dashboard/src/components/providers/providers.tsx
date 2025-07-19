@@ -24,7 +24,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
         enableColorScheme
       >
         {children}
-        <ReactQueryDevtools initialIsOpen={false} />
       </NextThemesProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

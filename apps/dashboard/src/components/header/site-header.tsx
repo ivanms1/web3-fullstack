@@ -1,6 +1,8 @@
 import { Separator } from "@repo/ui/components/separator";
 import { SidebarTrigger } from "@repo/ui/components/sidebar";
+
 import { ModeToggle } from "@/components/mode-toggle/mode-toggle";
+import { NetworkDisplay } from "@/components/network-display/network-display";
 
 export function SiteHeader() {
   return (
@@ -11,7 +13,7 @@ export function SiteHeader() {
           orientation="vertical"
           className="mx-2 data-[orientation=vertical]:h-4"
         />
-        <h1 className="text-base font-medium">Current Network: Testnet</h1>
+        <NetworkDisplay />
         <div className="ml-auto flex items-center gap-2">
           <ModeToggle />
         </div>

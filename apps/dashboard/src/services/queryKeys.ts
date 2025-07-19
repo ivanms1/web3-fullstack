@@ -3,4 +3,5 @@ export const QUERY_KEYS = {
   TRANSACTION: "transaction",
   APPROVAL: "approval",
   BALANCE: "balance",
+  NETWORK: "network",
 } as const;

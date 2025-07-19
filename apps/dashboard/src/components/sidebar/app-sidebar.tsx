@@ -1,16 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  IconChartBar,
-  IconDashboard,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react";
+
 import Link from "next/link";
 
 import {
@@ -26,45 +17,54 @@ import {
 import { NavMain } from "@/components/sidebar/nav-main";
 import { NavSecondary } from "@/components/sidebar/nav-secondary";
 import { NavUser } from "@/components/sidebar/nav-user";
+import {
+  ChartBar,
+  Folder,
+  HelpCircle,
+  LayoutDashboard,
+  List,
+  Settings,
+  Users,
+} from "lucide-react";
 
 const NAV_ITEMS = {
   navMain: [
     {
       title: "Home",
       url: "/dashboard",
-      icon: IconDashboard,
+      icon: LayoutDashboard,
     },
     {
       title: "My Wallet",
       url: "/my-wallet",
-      icon: IconListDetails,
+      icon: List,
     },
     {
       title: "Transactions",
       url: "/transactions",
-      icon: IconChartBar,
+      icon: ChartBar,
     },
     {
       title: "Approvals",
       url: "/approvals",
-      icon: IconFolder,
+      icon: Folder,
     },
     {
       title: "Users",
       url: "/users",
-      icon: IconUsers,
+      icon: Users,
     },
   ],
   navSecondary: [
     {
       title: "Settings",
       url: "/settings",
-      icon: IconSettings,
+      icon: Settings,
     },
     {
       title: "Get Help",
       url: "/help",
-      icon: IconHelp,
+      icon: HelpCircle,
     },
   ],
 };
@@ -80,7 +80,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <Link href="/dashboard">
-                <IconInnerShadowTop className="!size-5" />
+                <LayoutDashboard className="!size-5" />
                 <span className="text-base font-semibold">Dashboard</span>
               </Link>
             </SidebarMenuButton>

@@ -1,10 +1,6 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import {
-  IconDotsVertical,
-  IconLogout,
-  IconUserCircle,
-} from "@tabler/icons-react";
+
 import { Avatar, AvatarFallback } from "@repo/ui/components/avatar";
 import {
   DropdownMenu,
@@ -23,6 +19,7 @@ import {
 } from "@repo/ui/components/sidebar";
 
 import { userQueryKeys } from "@/services/user/request";
+import { LogOut, MoreVertical, User } from "lucide-react";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -52,7 +49,7 @@ export function NavUser() {
                   {user.email}
                 </span>
               </div>
-              <IconDotsVertical className="ml-auto size-4" />
+              <MoreVertical className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -77,13 +74,13 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <IconUserCircle />
+                <User />
                 Account
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <IconLogout />
+              <LogOut />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

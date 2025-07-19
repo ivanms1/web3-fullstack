@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 
 import "@repo/ui/globals.css";
 
-import { Providers } from "@/components/providers";
+import { Providers } from "@/components/providers/providers";
 
 import "./globals.css";
 

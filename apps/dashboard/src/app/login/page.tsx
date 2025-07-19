@@ -2,8 +2,9 @@
 
 import { Button } from "@repo/ui/components/button";
 import { Alert, AlertDescription } from "@repo/ui/components/alert";
-import { IconWallet, IconAlertCircle } from "@tabler/icons-react";
+
 import { useRouter } from "next/navigation";
+import { AlertCircleIcon, Loader2Icon, Wallet } from "lucide-react";
 
 import { useConnectWallet } from "@/services/wallet/request";
 
@@ -26,7 +27,7 @@ export default function LoginPage() {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8">
           <div className="text-center mb-8">
             <div className="mx-auto w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4">
-              <IconWallet className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Wallet className="w-8 h-8 text-blue-600 dark:text-blue-400" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Welcome to the Web3 Dashboard
@@ -44,12 +45,12 @@ export default function LoginPage() {
             >
               {isPending ? (
                 <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  <span>Connecting...</span>
+                  <Loader2Icon className="animate-spin" />
+                  Connecting...
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
-                  <IconWallet className="w-5 h-5" />
+                  <Wallet className="w-5 h-5" />
                   <span>Connect with MetaMask</span>
                 </div>
               )}
@@ -57,7 +58,7 @@ export default function LoginPage() {
 
             {error && (
               <Alert variant="destructive">
-                <IconAlertCircle className="h-4 w-4" />
+                <AlertCircleIcon className="h-4 w-4" />
                 <AlertDescription>{error.message}</AlertDescription>
               </Alert>
             )}

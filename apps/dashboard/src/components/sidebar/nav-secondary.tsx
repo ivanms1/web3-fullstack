@@ -1,8 +1,8 @@
 "use client";
+import { useEffect, useState } from "react";
 
-import * as React from "react";
-import { IconBrightness, type Icon } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
+import { SunMoon, type LucideIcon } from "lucide-react";
 
 import {
   SidebarGroup,
@@ -21,13 +21,13 @@ export function NavSecondary({
   items: {
     title: string;
     url: string;
-    icon: Icon;
+    icon: LucideIcon;
   }[];
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
 
@@ -48,7 +48,7 @@ export function NavSecondary({
           <SidebarMenuItem className="group-data-[collapsible=icon]:hidden">
             <SidebarMenuButton asChild>
               <label>
-                <IconBrightness />
+                <SunMoon />
                 <span>Dark Mode</span>
                 {mounted ? (
                   <Switch
