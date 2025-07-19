@@ -1,4 +1,4 @@
-import { TransactionList } from "@/components/transaction-list";
+import { TransactionList } from "@/app/transactions/transaction-list";
 
 export default function TransactionsPage() {
   return (

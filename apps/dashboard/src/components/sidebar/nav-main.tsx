@@ -1,5 +1,8 @@
 "use client";
+import { useState } from "react";
+
 import Link from "next/link";
+import { type LucideIcon } from "lucide-react";
 
 import {
   SidebarGroup,
@@ -8,7 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@repo/ui/components/sidebar";
-import { Send, type LucideIcon } from "lucide-react";
+import { TransactionDialog } from "@/components/transaction-dialog/transaction-dialog";
 
 export function NavMain({
   items,
@@ -19,18 +22,16 @@ export function NavMain({
     icon?: LucideIcon;
   }[];
 }) {
+  const [isTransactionDialogOpen, setIsTransactionDialogOpen] = useState(false);
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center gap-2">
-            <SidebarMenuButton
-              tooltip="Quick Transaction"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
-            >
-              <Send />
-              <span>Quick Transaction</span>
-            </SidebarMenuButton>
+            <TransactionDialog
+              open={isTransactionDialogOpen}
+              setOpen={setIsTransactionDialogOpen}
+            />
           </SidebarMenuItem>
         </SidebarMenu>
         <SidebarMenu>

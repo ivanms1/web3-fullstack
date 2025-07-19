@@ -4,9 +4,9 @@ import {
   FINANCIAL_PLATFORM_ABI,
   MOCK_TOKEN_ABI,
 } from "./contracts";
-import { User, UserRole } from "../types/user";
-import { Transaction, TransactionStatus } from "../types/transaction";
-import { Approval, ApprovalStatus, ApprovalType } from "../types/approval";
+import { User, UserRole } from "@/types/user";
+import { Transaction, TransactionStatus } from "@/types/transaction";
+import { Approval, ApprovalStatus, ApprovalType } from "@/types/approval";
 
 export type Provider = ethers.BrowserProvider | null;
 export type Signer = ethers.JsonRpcSigner | null;
@@ -391,7 +391,6 @@ export class ContractManager {
     chainId: number;
     blockNumber: number;
   }> {
-    console.log("this.provider", this.provider);
     if (!this.provider) {
       throw new Error("Provider not initialized");
     }
@@ -412,7 +411,6 @@ export class ContractManager {
 
     const networkName =
       networkNames[Number(network.chainId)] || `Chain ID ${network.chainId}`;
-    console.log("networkName", network);
 
     return {
       name: networkName,

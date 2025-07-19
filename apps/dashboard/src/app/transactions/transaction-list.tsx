@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@repo/ui/components/button";
 import { Input } from "@repo/ui/components/input";
 
-import { transactionQueryKeys } from "@/services/transaction";
+import { transactionQueryKeys } from "@/services/transaction/request";
 import { TransactionStatus, Transaction } from "@/types/transaction";
 import { contractManager } from "@/lib/contract-manager";
 
@@ -243,7 +243,7 @@ export function TransactionList() {
 
             {/* Amount Range */}
             <div className="space-y-2">
-              <label className="text-sm font-medium">Min Amount (ETH)</label>
+              <label className="text-sm font-medium">Min Amount (MT)</label>
               <Input
                 type="number"
                 placeholder="0"
@@ -255,7 +255,7 @@ export function TransactionList() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">Max Amount (ETH)</label>
+              <label className="text-sm font-medium">Max Amount (MT)</label>
               <Input
                 type="number"
                 placeholder="∞"
