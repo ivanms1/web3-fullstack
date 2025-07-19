@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-
 import { approvalAPI } from "@/api/approval";
-import { type Approval, ApprovalStatus } from "@/types/approval";
+import type { Approval } from "@/types/approval";
+import { ApprovalStatus } from "@/types/approval";
 
 export function useProcessApproval() {
   return useMutation({

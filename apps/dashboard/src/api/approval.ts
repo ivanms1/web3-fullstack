@@ -28,7 +28,7 @@ export class ApprovalAPI {
     if (!financialPlatform) {
       throw new Error("Financial Platform contract not initialized");
     }
-    return await financialPlatform.getPendingApprovals?.();
+    return financialPlatform.getPendingApprovals?.();
   }
 
   public async getApprovalCount(): Promise<number> {
@@ -36,7 +36,30 @@ export class ApprovalAPI {
     if (!financialPlatform) {
       throw new Error("Financial Platform contract not initialized");
     }
-    return await financialPlatform.getApprovalCount?.();
+    return financialPlatform.getApprovalCount?.();
+  }
+
+  public async getAllApprovals(): Promise<Approval[]> {
+    const financialPlatform = contractManager.getFinancialPlatform();
+    if (!financialPlatform) {
+      throw new Error("Financial Platform contract not initialized");
+    }
+
+    const approvalCount = await this.getApprovalCount();
+    const approvals: Approval[] = [];
+
+    // Fetch all approvals (IDs start from 1)
+    for (let i = 1; i <= approvalCount; i++) {
+      try {
+        const approval = await this.getApproval(i);
+        approvals.push(approval);
+      } catch (error) {
+        console.warn(`Failed to fetch approval ${i}:`, error);
+        // Continue with other approvals
+      }
+    }
+
+    return approvals;
   }
 
   public async requestApproval(
@@ -47,7 +70,7 @@ export class ApprovalAPI {
     if (!financialPlatform) {
       throw new Error("Financial Platform contract not initialized");
     }
-    return await financialPlatform.requestApproval?.(transactionId, reason);
+    return financialPlatform.requestApproval?.(transactionId, reason);
   }
 
   public async processApproval(
@@ -59,11 +82,7 @@ export class ApprovalAPI {
     if (!financialPlatform) {
       throw new Error("Financial Platform contract not initialized");
     }
-    return await financialPlatform.processApproval?.(
-      approvalId,
-      approved,
-      reason
-    );
+    return financialPlatform.processApproval?.(approvalId, approved, reason);
   }
 }
 

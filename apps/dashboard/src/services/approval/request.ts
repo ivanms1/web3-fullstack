@@ -1,5 +1,4 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-
 import { QUERY_KEYS } from "@/services/queryKeys";
 import { approvalAPI } from "@/api/approval";
 
@@ -15,5 +14,9 @@ export const approvalQueryKeys = createQueryKeys(QUERY_KEYS.APPROVAL, {
   getApprovalCount: () => ({
     queryKey: ["approval-count"],
     queryFn: () => approvalAPI.getApprovalCount(),
+  }),
+  getAllApprovals: () => ({
+    queryKey: ["all"],
+    queryFn: () => approvalAPI.getAllApprovals(),
   }),
 });
