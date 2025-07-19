@@ -11,8 +11,9 @@
     "pre-commit": "lint-staged"
   },
   "dependencies": {
-    "@repo/ui": "*",
     "@radix-ui/react-slot": "^1.2.3",
+    "@repo/ui": "*",
+    "@tabler/icons-react": "^3.34.0",
     "@tailwindcss/postcss": "^4.1.11",
     "class-variance-authority": "^0.7.1",
     "ethers": "^6.15.0",
