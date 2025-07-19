@@ -1,24 +1,24 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
 
 import { QUERY_KEYS } from "@/services/queryKeys";
-import { contractManager } from "@/lib/contract-manager";
+import { transactionAPI } from "@/api/transaction";
 
 export const transactionQueryKeys = createQueryKeys(QUERY_KEYS.TRANSACTION, {
   getTransaction: (transactionId: number) => ({
     queryKey: [transactionId],
-    queryFn: () => contractManager.getTransaction(transactionId),
+    queryFn: () => transactionAPI.getTransaction(transactionId),
   }),
   getUserTransactions: (userAddress: string) => ({
     queryKey: [userAddress],
-    queryFn: () => contractManager.getUserTransactions(userAddress),
+    queryFn: () => transactionAPI.getUserTransactions(userAddress),
   }),
   getAllTransactions: () => ({
     queryKey: ["all-transactions"],
-    queryFn: () => contractManager.getAllTransactions(),
+    queryFn: () => transactionAPI.getAllTransactions(),
   }),
 
   getTransactionCount: () => ({
     queryKey: ["transaction-count"],
-    queryFn: () => contractManager.getTransactionCount(),
+    queryFn: () => transactionAPI.getTransactionCount(),
   }),
 });

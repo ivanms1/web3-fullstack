@@ -20,7 +20,8 @@ export default function ApprovalsPage() {
                 No active approvals
               </div>
               <p className="text-sm text-muted-foreground">
-                You haven't approved any contracts to spend your tokens yet.
+                You haven&apos;t approved any contracts to spend your tokens
+                yet.
               </p>
             </div>
           </div>

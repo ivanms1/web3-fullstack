@@ -2,12 +2,14 @@
 
 import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+
 import { Button } from "@repo/ui/components/button";
 import { Input } from "@repo/ui/components/input";
 
 import { transactionQueryKeys } from "@/services/transaction/request";
-import { TransactionStatus, Transaction } from "@/types/transaction";
-import { contractManager } from "@/lib/contract-manager";
+import { contractManager } from "@/api/contract-manager";
+
+import { TransactionStatus, type Transaction } from "@/types/transaction";
 
 interface TransactionFilters {
   status?: TransactionStatus;
@@ -90,9 +92,6 @@ export function TransactionList() {
       }) || []
     );
   }, [allTransactions, filters]);
-
-  console.log("allTransactions", allTransactions);
-  console.log("filteredTransactions", filteredTransactions);
 
   const handleFilterChange = (key: keyof TransactionFilters, value: string) => {
     setFilters((prev) => ({

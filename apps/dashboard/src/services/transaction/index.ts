@@ -1,9 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { contractManager } from "@/lib/contract-manager";
-
+import { transactionAPI } from "@/api/transaction";
 import { transactionQueryKeys } from "./request";
-
 import type { Transaction } from "@/types/transaction";
 
 interface CreateTransactionParams {
@@ -16,7 +14,7 @@ export function useCreateTransaction() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (params: CreateTransactionParams) =>
-      contractManager.createTransaction(
+      transactionAPI.createTransaction(
         params.to,
         params.amount,
         params.description
@@ -31,6 +29,6 @@ export function useCreateTransaction() {
 export function useCompleteTransaction() {
   return useMutation({
     mutationFn: (transaction: Transaction) =>
-      contractManager.completeTransaction(transaction.id),
+      transactionAPI.completeTransaction(transaction.id),
   });
 }

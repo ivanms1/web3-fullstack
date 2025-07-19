@@ -1,11 +1,11 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
 
 import { QUERY_KEYS } from "@/services/queryKeys";
-import { contractManager } from "@/lib/contract-manager";
+import { networkAPI } from "@/api/network";
 
 export const networkQueryKeys = createQueryKeys(QUERY_KEYS.NETWORK, {
   getCurrentNetwork: () => ({
     queryKey: ["current-network"],
-    queryFn: () => contractManager.getCurrentNetwork(),
+    queryFn: () => networkAPI.getCurrentNetwork(),
   }),
 });

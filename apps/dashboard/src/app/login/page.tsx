@@ -5,8 +5,7 @@ import { Alert, AlertDescription } from "@repo/ui/components/alert";
 
 import { useRouter } from "next/navigation";
 import { AlertCircleIcon, Loader2Icon, Wallet } from "lucide-react";
-
-import { useConnectWallet } from "@/services/wallet/request";
+import { useConnectWallet } from "@/services/wallet";
 
 export default function LoginPage() {
   const { push } = useRouter();

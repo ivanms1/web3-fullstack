@@ -1,9 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
+import { createQueryKeys } from "@lukemorales/query-key-factory";
 
-import { contractManager } from "@/lib/contract-manager";
+import { QUERY_KEYS } from "@/services/queryKeys";
+import { contractManager } from "@/api/contract-manager";
 
-export function useConnectWallet() {
-  return useMutation({
-    mutationFn: () => contractManager.connectWallet(),
-  });
-}
+export const walletQueryKeys = createQueryKeys(QUERY_KEYS.WALLET, {
+  getCurrentAccount: () => ({
+    queryKey: ["current-account"],
+    queryFn: () => contractManager.getCurrentAccount(),
+  }),
+});

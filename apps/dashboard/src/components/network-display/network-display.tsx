@@ -1,10 +1,10 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { Network, Loader2Icon } from "lucide-react";
 
 import { networkQueryKeys } from "@/services/network/request";
-import { contractManager } from "@/lib/contract-manager";
-import { Network, Loader2Icon } from "lucide-react";
+import { contractManager } from "@/api/contract-manager";
 
 export function NetworkDisplay() {
   const {

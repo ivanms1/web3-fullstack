@@ -1,14 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { contractManager } from "@/lib/contract-manager";
-
-import type { Approval } from "@/types/approval";
-import { ApprovalStatus } from "@/types/approval";
+import { approvalAPI } from "@/api/approval";
+import { type Approval, ApprovalStatus } from "@/types/approval";
 
 export function useProcessApproval() {
   return useMutation({
     mutationFn: (approval: Approval) =>
-      contractManager.processApproval(
+      approvalAPI.processApproval(
         approval.id,
         approval.status === ApprovalStatus.Approved,
         approval.reason
@@ -19,6 +17,6 @@ export function useProcessApproval() {
 export function useRequestApproval() {
   return useMutation({
     mutationFn: (approval: Approval) =>
-      contractManager.requestApproval(approval.transactionId, approval.reason),
+      approvalAPI.requestApproval(approval.transactionId, approval.reason),
   });
 }
