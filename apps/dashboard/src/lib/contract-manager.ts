@@ -248,8 +248,6 @@ export class ContractManager {
     const transactionCount = await this.getTransactionCount();
     const transactions: Transaction[] = [];
 
-    console.log("transactionCount", transactionCount);
-
     // Fetch all transactions (IDs start from 1)
     for (let i = 1; i <= transactionCount; i++) {
       try {
