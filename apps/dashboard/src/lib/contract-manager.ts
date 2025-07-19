@@ -25,7 +25,6 @@ export class ContractManager {
 
   private constructor() {}
 
-  // Singleton pattern
   public static getInstance(): ContractManager {
     if (!ContractManager.instance) {
       ContractManager.instance = new ContractManager();
@@ -340,45 +339,30 @@ export class ContractManager {
     );
   }
 
-  // Mock Token contract methods
   public async getTokenBalance(userAddress: string): Promise<string> {
     if (!this.contracts.mockToken) {
       throw new Error("Mock Token contract not initialized");
     }
+
     const balance = await this.contracts.mockToken!.balanceOf?.(userAddress);
     return this.formatEther(balance);
   }
 
-  public async transferToken(
-    to: string,
-    amount: string
-  ): Promise<ethers.ContractTransactionResponse> {
-    if (!this.contracts.mockToken) {
-      throw new Error("Mock Token contract not initialized");
+  public async getEthBalance(userAddress: string): Promise<string> {
+    if (!this.provider) {
+      throw new Error("Provider not initialized");
     }
-    const value = this.parseEther(amount);
-    return await this.contracts.mockToken!.transfer?.(to, value);
+    const balance = await this.provider.getBalance(userAddress);
+    return this.formatEther(balance);
   }
 
-  public async mintToken(
-    to: string,
-    amount: string
-  ): Promise<ethers.ContractTransactionResponse> {
-    if (!this.contracts.mockToken) {
-      throw new Error("Mock Token contract not initialized");
+  public async getCurrentEthBalance(): Promise<string> {
+    const currentAccount = await this.getCurrentAccount();
+    if (!currentAccount) {
+      throw new Error("No wallet connected");
     }
-    return await this.contracts.mockToken!.mint?.(to, this.parseEther(amount));
-  }
-
-  public async burnToken(
-    amount: string
-  ): Promise<ethers.ContractTransactionResponse> {
-    if (!this.contracts.mockToken) {
-      throw new Error("Mock Token contract not initialized");
-    }
-    return await this.contracts.mockToken!.burn?.(this.parseEther(amount));
+    return await this.getEthBalance(currentAccount);
   }
 }
 
-// Export singleton instance
 export const contractManager = ContractManager.getInstance();

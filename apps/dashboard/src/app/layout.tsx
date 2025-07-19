@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-
+import { Toaster } from "@repo/ui/components/sonner";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 
 import type { Metadata } from "next";
@@ -30,6 +30,7 @@ export default async function RootLayout({
         <body>
           <Providers>
             <LayoutWrapper defaultOpen={defaultOpen}>{children}</LayoutWrapper>
+            <Toaster />
           </Providers>
         </body>
       </html>
