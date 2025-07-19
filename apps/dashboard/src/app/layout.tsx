@@ -1,8 +1,6 @@
 import { cookies } from "next/headers";
 
-import { SidebarInset, SidebarProvider } from "@repo/ui/components/sidebar";
-import { AppSidebar } from "@/components/sidebar/app-sidebar";
-import { SiteHeader } from "@/components/header/site-header";
+import { LayoutWrapper } from "@/components/layout-wrapper";
 
 import type { Metadata } from "next";
 
@@ -31,20 +29,7 @@ export default async function RootLayout({
         <head />
         <body>
           <Providers>
-            <SidebarProvider
-              defaultOpen={defaultOpen}
-              style={
-                {
-                  "--sidebar-width": "calc(var(--spacing) * 72)",
-                } as React.CSSProperties
-              }
-            >
-              <AppSidebar variant="inset" />
-              <SidebarInset>
-                <SiteHeader />
-                <div className="flex flex-1 flex-col">{children}</div>
-              </SidebarInset>
-            </SidebarProvider>
+            <LayoutWrapper defaultOpen={defaultOpen}>{children}</LayoutWrapper>
           </Providers>
         </body>
       </html>

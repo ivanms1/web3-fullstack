@@ -11,6 +11,7 @@ import {
   IconSettings,
   IconUsers,
 } from "@tabler/icons-react";
+import Link from "next/link";
 
 import {
   Sidebar,
@@ -34,7 +35,7 @@ const data = {
   },
   navMain: [
     {
-      title: "Dashboard",
+      title: "Home",
       url: "/dashboard",
       icon: IconDashboard,
     },
@@ -83,10 +84,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
+              <Link href="/dashboard">
                 <IconInnerShadowTop className="!size-5" />
                 <span className="text-base font-semibold">Dashboard</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
