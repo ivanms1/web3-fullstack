@@ -120,7 +120,7 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
 
           {/* Amount */}
           <div className="space-y-2">
-            <Label htmlFor="amount">Amount (ETH)</Label>
+            <Label htmlFor="amount">Amount (MT)</Label>
             <Input
               id="amount"
               type="number"
