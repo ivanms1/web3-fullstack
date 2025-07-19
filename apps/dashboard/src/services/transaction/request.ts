@@ -12,6 +12,11 @@ export const transactionQueryKeys = createQueryKeys(QUERY_KEYS.TRANSACTION, {
     queryKey: [userAddress],
     queryFn: () => contractManager.getUserTransactions(userAddress),
   }),
+  getAllTransactions: () => ({
+    queryKey: ["all-transactions"],
+    queryFn: () => contractManager.getAllTransactions(),
+  }),
+
   getTransactionCount: () => ({
     queryKey: ["transaction-count"],
     queryFn: () => contractManager.getTransactionCount(),

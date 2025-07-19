@@ -240,6 +240,30 @@ export class ContractManager {
     return await this.contracts.financialPlatform!.getTransactionCount?.();
   }
 
+  public async getAllTransactions(): Promise<Transaction[]> {
+    if (!this.contracts.financialPlatform) {
+      throw new Error("Financial Platform contract not initialized");
+    }
+
+    const transactionCount = await this.getTransactionCount();
+    const transactions: Transaction[] = [];
+
+    console.log("transactionCount", transactionCount);
+
+    // Fetch all transactions (IDs start from 1)
+    for (let i = 1; i <= transactionCount; i++) {
+      try {
+        const transaction = await this.getTransaction(i);
+        transactions.push(transaction);
+      } catch (error) {
+        console.warn(`Failed to fetch transaction ${i}:`, error);
+        // Continue with other transactions
+      }
+    }
+
+    return transactions;
+  }
+
   public async getApprovalCount(): Promise<number> {
     if (!this.contracts.financialPlatform) {
       throw new Error("Financial Platform contract not initialized");
@@ -369,6 +393,7 @@ export class ContractManager {
     chainId: number;
     blockNumber: number;
   }> {
+    console.log("this.provider", this.provider);
     if (!this.provider) {
       throw new Error("Provider not initialized");
     }
@@ -389,6 +414,7 @@ export class ContractManager {
 
     const networkName =
       networkNames[Number(network.chainId)] || `Chain ID ${network.chainId}`;
+    console.log("networkName", network);
 
     return {
       name: networkName,

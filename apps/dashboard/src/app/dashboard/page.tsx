@@ -6,7 +6,7 @@ import { transactionQueryKeys } from "@/services/transaction/request";
 import { approvalQueryKeys } from "@/services/approval/request";
 
 export default function DashboardPage() {
-  const { data: user, error } = useQuery({ ...userQueryKeys.getCurrentUser() });
+  const { data: user } = useQuery({ ...userQueryKeys.getCurrentUser() });
 
   const { data: myTransactions } = useQuery({
     ...transactionQueryKeys.getUserTransactions(user?.walletAddress ?? ""),

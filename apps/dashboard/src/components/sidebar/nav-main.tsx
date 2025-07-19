@@ -8,7 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@repo/ui/components/sidebar";
-import { CirclePlus, type LucideIcon } from "lucide-react";
+import { Send, type LucideIcon } from "lucide-react";
 
 export function NavMain({
   items,
@@ -28,7 +28,7 @@ export function NavMain({
               tooltip="Quick Transaction"
               className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
             >
-              <CirclePlus />
+              <Send />
               <span>Quick Transaction</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
