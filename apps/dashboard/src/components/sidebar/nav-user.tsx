@@ -1,11 +1,10 @@
 "use client";
-
+import { useQuery } from "@tanstack/react-query";
 import {
   IconDotsVertical,
   IconLogout,
   IconUserCircle,
 } from "@tabler/icons-react";
-
 import { Avatar, AvatarFallback } from "@repo/ui/components/avatar";
 import {
   DropdownMenu,
@@ -23,16 +22,15 @@ import {
   useSidebar,
 } from "@repo/ui/components/sidebar";
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    address: string;
-  };
-}) {
+import { userQueryKeys } from "@/services/user/request";
+
+export function NavUser() {
   const { isMobile } = useSidebar();
+  const { data: user } = useQuery({ ...userQueryKeys.getCurrentUser() });
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <SidebarMenu>
@@ -44,7 +42,9 @@ export function NavUser({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {user.name.slice(0, 2).toUpperCase()}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>

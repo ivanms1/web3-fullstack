@@ -27,12 +27,7 @@ import { NavMain } from "@/components/sidebar/nav-main";
 import { NavSecondary } from "@/components/sidebar/nav-secondary";
 import { NavUser } from "@/components/sidebar/nav-user";
 
-const data = {
-  user: {
-    address: "0x1234567890",
-    name: "John Doe",
-    email: "m@example.com",
-  },
+const NAV_ITEMS = {
   navMain: [
     {
       title: "Home",
@@ -93,11 +88,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavMain items={NAV_ITEMS.navMain} />
+        <NavSecondary items={NAV_ITEMS.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
     </Sidebar>
   );

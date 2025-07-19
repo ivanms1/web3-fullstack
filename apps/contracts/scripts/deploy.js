@@ -158,6 +158,10 @@ async function main() {
       FinancialPlatform: platformAddress,
       MockToken: tokenAddress
     },
+    abis: {
+      FinancialPlatform: JSON.parse(financialPlatform.interface.formatJson()),
+      MockToken: JSON.parse(mockToken.interface.formatJson())
+    },
     testAccounts: {
       deployer: await deployer.getAddress(),
       user1: await user1.getAddress(),

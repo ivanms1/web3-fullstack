@@ -51,13 +51,13 @@ export class ContractManager {
     }
 
     this.contracts.financialPlatform = new ethers.Contract(
-      CONTRACT_ADDRESSES.FINANCIAL_PLATFORM,
+      CONTRACT_ADDRESSES.FinancialPlatform,
       FINANCIAL_PLATFORM_ABI,
       this.signer || this.provider
     );
 
     this.contracts.mockToken = new ethers.Contract(
-      CONTRACT_ADDRESSES.MOCK_TOKEN,
+      CONTRACT_ADDRESSES.MockToken,
       MOCK_TOKEN_ABI,
       this.signer || this.provider
     );
@@ -198,7 +198,6 @@ export class ContractManager {
     const result =
       await this.contracts.financialPlatform!.getUser?.(userAddress);
 
-    // Convert contract result to User interface
     return {
       id: Number(result.id),
       walletAddress: result.walletAddress,
@@ -208,6 +207,15 @@ export class ContractManager {
       isActive: result.isActive,
       createdAt: Number(result.createdAt),
     };
+  }
+
+  public async getCurrentUser(): Promise<User> {
+    const currentAccount = await this.getCurrentAccount();
+    if (!currentAccount) {
+      throw new Error("No wallet connected");
+    }
+
+    return await this.getUser(currentAccount);
   }
 
   public async getUserTransactions(userAddress: string): Promise<number[]> {

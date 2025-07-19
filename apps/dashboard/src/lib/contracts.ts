@@ -1,14 +1,13 @@
+import deploymentInfo from "./deployment-info.json";
+
 // Contract ABIs and addresses
-export const CONTRACT_ADDRESSES = {
-  FINANCIAL_PLATFORM: "",
-  MOCK_TOKEN: "",
-} as const;
+export const CONTRACT_ADDRESSES = deploymentInfo.contracts;
 
 // Financial Platform ABI
-export const FINANCIAL_PLATFORM_ABI = [] as const;
+export const FINANCIAL_PLATFORM_ABI = deploymentInfo.abis.FinancialPlatform;
 
 // Mock Token ABI
-export const MOCK_TOKEN_ABI = [] as const;
+export const MOCK_TOKEN_ABI = deploymentInfo.abis.MockToken;
 
 export type ContractAddresses = typeof CONTRACT_ADDRESSES;
 export type FinancialPlatformABI = typeof FINANCIAL_PLATFORM_ABI;

@@ -8,6 +8,10 @@ export const userQueryKeys = createQueryKeys(QUERY_KEYS.USER, {
     queryKey: [userAddress],
     queryFn: () => contractManager.getUser(userAddress),
   }),
+  getCurrentUser: () => ({
+    queryKey: ["current-user"],
+    queryFn: () => contractManager.getCurrentUser(),
+  }),
   getUserCount: () => ({
     queryKey: ["user-count"],
     queryFn: () => contractManager.getUserCount(),
