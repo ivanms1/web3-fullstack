@@ -1,43 +1,23 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@repo/ui/components/button";
 import { Alert, AlertDescription } from "@repo/ui/components/alert";
 import { IconWallet, IconAlertCircle } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+import { useConnectWallet } from "@/services/wallet/request";
 
+export default function LoginPage() {
   const { push } = useRouter();
 
+  const { mutate: connectWallet, error, isPending } = useConnectWallet();
+
   const connectMetaMask = async () => {
-    setIsConnecting(true);
-    setError(null);
-
-    try {
-      // Check if MetaMask is installed
-      if (typeof window.ethereum === "undefined") {
-        setError(
-          "MetaMask is not installed. Please install MetaMask to continue."
-        );
-        return;
-      }
-
-      // Request account access
-      const accounts = (await window.ethereum.request({
-        method: "eth_requestAccounts",
-      })) as string[];
-
-      if (accounts && accounts.length > 0) {
+    connectWallet(undefined, {
+      onSuccess: () => {
         push("/dashboard");
-      }
-    } catch {
-      setError("Failed to connect to MetaMask. Please try again.");
-    } finally {
-      setIsConnecting(false);
-    }
+      },
+    });
   };
 
   return (
@@ -59,10 +39,10 @@ export default function LoginPage() {
           <div className="space-y-4">
             <Button
               onClick={connectMetaMask}
-              disabled={isConnecting}
+              disabled={isPending}
               className="w-full h-12 text-base font-medium"
             >
-              {isConnecting ? (
+              {isPending ? (
                 <div className="flex items-center space-x-2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   <span>Connecting...</span>
@@ -78,7 +58,7 @@ export default function LoginPage() {
             {error && (
               <Alert variant="destructive">
                 <IconAlertCircle className="h-4 w-4" />
-                <AlertDescription>{error}</AlertDescription>
+                <AlertDescription>{error.message}</AlertDescription>
               </Alert>
             )}
 

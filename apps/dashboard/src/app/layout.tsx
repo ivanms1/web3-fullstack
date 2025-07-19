@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-import { LayoutWrapper } from "@/components/layout-wrapper";
+import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 
 import type { Metadata } from "next";
 
