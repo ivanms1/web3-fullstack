@@ -2,10 +2,12 @@
 
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
 import { walletQueryKeys } from "@/services/wallet/request";
 import { useConnectWallet } from "@/services/wallet";
 import { userQueryKeys } from "@/services/user/request";
-import { toast } from "sonner";
 
 export function useWalletSession() {
   const queryClient = useQueryClient();
@@ -15,15 +17,39 @@ export function useWalletSession() {
       ...walletQueryKeys.getCurrentAccount(),
     }
   );
-  const { data: user } = useQuery({ ...userQueryKeys.getCurrentUser() });
+  const { data: user, isLoading: isLoadingUser } = useQuery({
+    ...userQueryKeys.getCurrentUser(),
+    enabled: !!currentAccount,
+  });
 
-  const { mutate: connectWallet, isPending: isConnecting } = useConnectWallet();
+  const { mutate: connectWallet } = useConnectWallet();
+
+  const router = useRouter();
+
+  const userIsRegistered = user?.id !== 0;
 
   useEffect(() => {
+    if (isLoadingCurrentAccount) {
+      return;
+    }
     if (currentAccount) {
       connectWallet();
     }
-  }, [connectWallet, currentAccount]);
+
+    if (!userIsRegistered) {
+      router.push("/login");
+    }
+
+    if (!currentAccount) {
+      router.push("/login");
+    }
+  }, [
+    isLoadingCurrentAccount,
+    currentAccount,
+    connectWallet,
+    router,
+    userIsRegistered,
+  ]);
 
   // Listen for MetaMask account changes
   useEffect(() => {
@@ -53,7 +79,7 @@ export function useWalletSession() {
   }, [queryClient]);
 
   return {
-    isInitializing: isLoadingCurrentAccount || isConnecting,
+    isInitializing: isLoadingUser || isLoadingCurrentAccount,
     currentAccount,
     connectWallet,
     user,

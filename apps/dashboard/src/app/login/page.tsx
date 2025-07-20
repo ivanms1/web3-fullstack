@@ -15,13 +15,15 @@ export default function LoginPage() {
 
   const { mutate: connectWallet, error, isPending } = useConnectWallet();
 
-  const { currentAccount } = useWalletSession();
+  const { currentAccount, user, isInitializing } = useWalletSession();
+
+  const userIsRegistered = user?.id !== 0;
 
   useEffect(() => {
-    if (currentAccount) {
+    if (currentAccount && user && userIsRegistered) {
       push("/dashboard");
     }
-  }, [currentAccount, push]);
+  }, [currentAccount, push, user, userIsRegistered]);
 
   const connectMetaMask = async () => {
     connectWallet(undefined, {
@@ -50,15 +52,23 @@ export default function LoginPage() {
           <div className="space-y-4">
             <Button
               onClick={connectMetaMask}
-              disabled={isPending}
+              disabled={isPending || !userIsRegistered || isInitializing}
               className="w-full h-12 text-base font-medium"
             >
-              {isPending ? (
+              {isInitializing && (
+                <div className="flex items-center space-x-2">
+                  <Loader2Icon className="animate-spin" />
+                  Checking wallet...
+                </div>
+              )}
+              {isPending && (
                 <div className="flex items-center space-x-2">
                   <Loader2Icon className="animate-spin" />
                   Connecting...
                 </div>
-              ) : (
+              )}
+
+              {!isInitializing && !isPending && (
                 <div className="flex items-center space-x-2">
                   <Wallet className="w-5 h-5" />
                   <span>Connect with MetaMask</span>
@@ -70,6 +80,15 @@ export default function LoginPage() {
               <Alert variant="destructive">
                 <AlertCircleIcon className="h-4 w-4" />
                 <AlertDescription>{error.message}</AlertDescription>
+              </Alert>
+            )}
+
+            {currentAccount && !userIsRegistered && (
+              <Alert variant="destructive">
+                <AlertCircleIcon className="h-4 w-4" />
+                <AlertDescription>
+                  Please register your account to continue
+                </AlertDescription>
               </Alert>
             )}
 

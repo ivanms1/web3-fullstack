@@ -28,7 +28,8 @@ export class UserAPI {
     if (!currentAccount) {
       throw new Error("No wallet connected");
     }
-    return await this.getUser(currentAccount);
+
+    return this.getUser(currentAccount);
   }
 
   public async isUserRegistered(userAddress: string): Promise<boolean> {
@@ -50,7 +51,7 @@ export class UserAPI {
     if (!financialPlatform) {
       throw new Error("Financial Platform contract not initialized");
     }
-    return await financialPlatform.getUserCount?.();
+    return financialPlatform.getUserCount?.();
   }
 
   public async registerUser(
@@ -63,12 +64,7 @@ export class UserAPI {
     if (!financialPlatform) {
       throw new Error("Financial Platform contract not initialized");
     }
-    return await financialPlatform.registerUser?.(
-      walletAddress,
-      name,
-      email,
-      role
-    );
+    return financialPlatform.registerUser?.(walletAddress, name, email, role);
   }
 
   public async updateUserRole(
@@ -79,7 +75,7 @@ export class UserAPI {
     if (!financialPlatform) {
       throw new Error("Financial Platform contract not initialized");
     }
-    return await financialPlatform.updateUserRole?.(userAddress, newRole);
+    return financialPlatform.updateUserRole?.(userAddress, newRole);
   }
 }
 
