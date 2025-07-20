@@ -15,6 +15,9 @@ export interface BlockchainEvent {
 export const eventsAtom = atomWithReset<BlockchainEvent[]>([]);
 export const eventsSidebarOpenAtom = atom<boolean>(false);
 
+// Unread notifications counter
+export const unreadNotificationsAtom = atomWithReset<number>(0);
+
 // Helper functions to add events
 export const addEventAtom = atom(
   null,
@@ -62,6 +65,11 @@ export const addEventAtom = atom(
       id: `${event.type}-${Date.now()}-${Math.random()}`,
       timestamp: new Date(),
     };
+
+    // Add the new event
     set(eventsAtom, [newEvent, ...events.slice(0, 49)]); // Keep last 50 events
+
+    const currentUnread = get(unreadNotificationsAtom);
+    set(unreadNotificationsAtom, currentUnread + 1);
   }
 );

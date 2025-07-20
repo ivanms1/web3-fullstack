@@ -19,7 +19,11 @@ import {
   Shield,
   UserPlus,
 } from "lucide-react";
-import { eventsAtom, eventsSidebarOpenAtom } from "@/store/events";
+import {
+  eventsAtom,
+  eventsSidebarOpenAtom,
+  unreadNotificationsAtom,
+} from "@/store/events";
 import { dayjs } from "@/lib/dayjs";
 
 const getEventIcon = (type: string) => {
@@ -57,19 +61,29 @@ const getStatusColor = (status: string) => {
 export function EventsSidebar() {
   const [events] = useAtom(eventsAtom);
   const [isOpen, setIsOpen] = useAtom(eventsSidebarOpenAtom);
+  const [unreadCount] = useAtom(unreadNotificationsAtom);
   const resetEvents = useResetAtom(eventsAtom);
+  const resetUnread = useResetAtom(unreadNotificationsAtom);
+
+  // Reset unread count when sidebar opens
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    if (open) {
+      resetUnread();
+    }
+  };
 
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+    <Sheet open={isOpen} onOpenChange={handleOpenChange}>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" className="relative">
           <Bell className="h-4 w-4" />
-          {events.length > 0 && (
+          {unreadCount > 0 && (
             <Badge
               variant="destructive"
               className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 text-xs"
             >
-              {events.length > 99 ? "99+" : events.length}
+              {unreadCount > 99 ? "99+" : unreadCount}
             </Badge>
           )}
         </Button>
