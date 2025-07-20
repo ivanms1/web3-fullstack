@@ -1,14 +1,11 @@
 "use client";
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { dayjs } from "@/lib/dayjs";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@repo/ui/components/badge";
 
 import { User, UserRole } from "@/types/user";
 import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
-
-dayjs.extend(relativeTime);
 
 const ROLE_CONFIG = {
   [UserRole.Regular]: {

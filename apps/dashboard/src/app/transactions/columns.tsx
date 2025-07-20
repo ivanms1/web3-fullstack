@@ -1,33 +1,12 @@
 "use client";
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { dayjs } from "@/lib/dayjs";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@repo/ui/components/badge";
 
 import { Transaction, TransactionStatus } from "@/types/transaction";
 import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
-
-dayjs.extend(relativeTime);
-
-const STATUS_CONFIG = {
-  [TransactionStatus.Pending]: {
-    label: "Pending",
-    variant: "secondary" as const,
-  },
-  [TransactionStatus.Active]: {
-    label: "Active",
-    variant: "default" as const,
-  },
-  [TransactionStatus.Completed]: {
-    label: "Completed",
-    variant: "default" as const,
-  },
-  [TransactionStatus.Rejected]: {
-    label: "Rejected",
-    variant: "destructive" as const,
-  },
-};
+import { TRANSACTION_STATUS_CONFIG } from "@/const";
 
 export const COLUMNS: ColumnDef<Transaction>[] = [
   {
@@ -80,7 +59,7 @@ export const COLUMNS: ColumnDef<Transaction>[] = [
     cell: ({ row }) => {
       const status = row.getValue("status") as TransactionStatus;
 
-      const config = STATUS_CONFIG[status] || {
+      const config = TRANSACTION_STATUS_CONFIG[status] || {
         label: "Unknown",
         variant: "secondary" as const,
       };

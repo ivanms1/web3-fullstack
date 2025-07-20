@@ -1,20 +1,18 @@
 "use client";
 
 import { useState } from "react";
+
 import { Input } from "@repo/ui/components/input";
 import { DataTable } from "@repo/ui/components/data-table";
-
-import { Transaction } from "@/types/transaction";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-
-import { COLUMNS } from "@/app/transactions/columns";
 import { useQuery } from "@tanstack/react-query";
-import { transactionQueryKeys } from "@/services/transaction/request";
-import { contractManager } from "@/api/contract-manager";
+
 import { TransactionDetailsDrawer } from "./transaction-details-drawer";
 
-dayjs.extend(relativeTime);
+import { COLUMNS } from "@/app/transactions/columns";
+import { transactionQueryKeys } from "@/services/transaction/request";
+import { contractManager } from "@/api/contract-manager";
+
+import { Transaction } from "@/types/transaction";
 
 export function TransactionsTable() {
   const [globalFilter, setGlobalFilter] = useState("");

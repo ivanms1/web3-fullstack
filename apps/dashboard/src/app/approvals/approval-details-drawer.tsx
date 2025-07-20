@@ -1,7 +1,5 @@
 "use client";
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import {
   Drawer,
   DrawerContent,
@@ -17,6 +15,7 @@ import { Separator } from "@repo/ui/components/separator";
 
 import { Approval, ApprovalStatus, ApprovalType } from "@/types/approval";
 import { ProcessApprovalForm } from "./process-approval-form";
+import { dayjs } from "@/lib/dayjs";
 
 const TYPE_LABELS = {
   [ApprovalType.Transaction]: "Transaction",
@@ -38,8 +37,6 @@ const STATUS_CONFIG = {
     variant: "destructive" as const,
   },
 };
-
-dayjs.extend(relativeTime);
 
 interface ApprovalDetailsDrawerProps {
   approval: Approval | null;

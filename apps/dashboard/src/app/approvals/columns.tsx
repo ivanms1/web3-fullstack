@@ -1,15 +1,13 @@
 "use client";
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { dayjs } from "@/lib/dayjs";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@repo/ui/components/badge";
 
 import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
 
 import { Approval, ApprovalStatus, ApprovalType } from "@/types/approval";
-
-dayjs.extend(relativeTime);
+import { APPROVAL_STATUS_CONFIG } from "@/const";
 
 export const COLUMNS: ColumnDef<Approval>[] = [
   {
@@ -55,21 +53,7 @@ export const COLUMNS: ColumnDef<Approval>[] = [
     header: "Status",
     cell: ({ row }) => {
       const status = row.getValue("status") as ApprovalStatus;
-      const statusConfig = {
-        [ApprovalStatus.Pending]: {
-          label: "Pending",
-          variant: "secondary" as const,
-        },
-        [ApprovalStatus.Approved]: {
-          label: "Approved",
-          variant: "default" as const,
-        },
-        [ApprovalStatus.Rejected]: {
-          label: "Rejected",
-          variant: "destructive" as const,
-        },
-      };
-      const config = statusConfig[status] || {
+      const config = APPROVAL_STATUS_CONFIG[status] || {
         label: "Unknown",
         variant: "secondary" as const,
       };

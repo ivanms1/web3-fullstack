@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { dayjs } from "@/lib/dayjs";
 import { ArrowUpRight, ArrowDownLeft, ArrowRight } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@repo/ui/components/badge";
@@ -13,7 +12,16 @@ import { DataTable } from "@repo/ui/components/data-table";
 import { Transaction, TransactionStatus } from "@/types/transaction";
 import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
 
-dayjs.extend(relativeTime);
+import { TRANSACTION_STATUS_CONFIG } from "@/const";
+
+const getStatusConfig = (status: TransactionStatus) => {
+  return (
+    TRANSACTION_STATUS_CONFIG[status] || {
+      label: "Unknown",
+      variant: "secondary" as const,
+    }
+  );
+};
 
 interface UserTransactionsTableProps {
   transactions: Transaction[];
@@ -26,33 +34,6 @@ export function UserTransactionsTable({
   userAddress,
 }: UserTransactionsTableProps) {
   const [globalFilter, setGlobalFilter] = useState("");
-
-  const getStatusConfig = (status: TransactionStatus) => {
-    const statusConfig = {
-      [TransactionStatus.Pending]: {
-        label: "Pending",
-        variant: "secondary" as const,
-      },
-      [TransactionStatus.Active]: {
-        label: "Active",
-        variant: "default" as const,
-      },
-      [TransactionStatus.Completed]: {
-        label: "Completed",
-        variant: "default" as const,
-      },
-      [TransactionStatus.Rejected]: {
-        label: "Rejected",
-        variant: "destructive" as const,
-      },
-    };
-    return (
-      statusConfig[status] || {
-        label: "Unknown",
-        variant: "secondary" as const,
-      }
-    );
-  };
 
   const getTransactionType = (transaction: Transaction) => {
     const isSender =

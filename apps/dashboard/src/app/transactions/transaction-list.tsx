@@ -11,6 +11,8 @@ import { contractManager } from "@/api/contract-manager";
 
 import { TransactionStatus, type Transaction } from "@/types/transaction";
 
+import { TRANSACTION_STATUS_CONFIG } from "@/const";
+
 interface TransactionFilters {
   status?: TransactionStatus;
   fromAddress?: string;
@@ -105,13 +107,7 @@ export function TransactionList() {
   };
 
   const getStatusText = (status: TransactionStatus) => {
-    const statusMap = {
-      [TransactionStatus.Pending]: "Pending",
-      [TransactionStatus.Active]: "Active",
-      [TransactionStatus.Completed]: "Completed",
-      [TransactionStatus.Rejected]: "Rejected",
-    };
-    return statusMap[status];
+    return TRANSACTION_STATUS_CONFIG[status]?.label;
   };
 
   const formatAmount = (amount: string) => {

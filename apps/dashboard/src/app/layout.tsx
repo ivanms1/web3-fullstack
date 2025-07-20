@@ -1,12 +1,12 @@
 import { cookies } from "next/headers";
 import { Toaster } from "@repo/ui/components/sonner";
-import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 
 import type { Metadata } from "next";
 
-import "@repo/ui/globals.css";
-
+import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 import { Providers } from "@/components/providers/providers";
+
+import "@repo/ui/globals.css";
 
 export const metadata: Metadata = {
   title: "Dashboard",

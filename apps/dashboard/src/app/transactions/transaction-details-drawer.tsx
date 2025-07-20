@@ -1,7 +1,6 @@
 "use client";
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { dayjs } from "@/lib/dayjs";
 import {
   Drawer,
   DrawerContent,
@@ -19,26 +18,7 @@ import { Transaction, TransactionStatus } from "@/types/transaction";
 import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
 import { RequestApprovalForm } from "./request-approval-form";
 
-const STATUS_CONFIG = {
-  [TransactionStatus.Pending]: {
-    label: "Pending",
-    variant: "secondary" as const,
-  },
-  [TransactionStatus.Active]: {
-    label: "Active",
-    variant: "default" as const,
-  },
-  [TransactionStatus.Completed]: {
-    label: "Completed",
-    variant: "default" as const,
-  },
-  [TransactionStatus.Rejected]: {
-    label: "Rejected",
-    variant: "destructive" as const,
-  },
-};
-
-dayjs.extend(relativeTime);
+import { TRANSACTION_STATUS_CONFIG } from "@/const";
 
 interface TransactionDetailsDrawerProps {
   transaction: Transaction | null;
@@ -55,7 +35,7 @@ export function TransactionDetailsDrawer({
     return null;
   }
 
-  const config = STATUS_CONFIG[transaction.status] || {
+  const config = TRANSACTION_STATUS_CONFIG[transaction.status] || {
     label: "Unknown",
     variant: "secondary" as const,
   };

@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Button } from "@repo/ui/components/button";
 import { Input } from "@repo/ui/components/input";
 import { Label } from "@repo/ui/components/label";
-
+import { dayjs } from "@/lib/dayjs";
 import { Badge } from "@repo/ui/components/badge";
 import { Separator } from "@repo/ui/components/separator";
 import {
@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@repo/ui/components/select";
 import { Search, User, Wallet, Mail, Calendar, Activity } from "lucide-react";
+import { toast } from "sonner";
 
 import { UserRole } from "@/types/user";
 import { useQuery } from "@tanstack/react-query";
@@ -28,12 +29,8 @@ import { useUpdateUserRole } from "@/services/user";
 import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
 import { UserTransactionsTable } from "./user-transactions-table";
 import { RegisterUserDialog } from "./register-user-dialog";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import { useWalletSession } from "@/hooks/use-wallet-session";
-import { toast } from "sonner";
 
-dayjs.extend(relativeTime);
+import { useWalletSession } from "@/hooks/use-wallet-session";
 
 const getRoleConfig = (role: UserRole) => {
   const roleConfig = {

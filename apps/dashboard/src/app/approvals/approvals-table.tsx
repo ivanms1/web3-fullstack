@@ -3,17 +3,12 @@
 import { useState } from "react";
 import { Input } from "@repo/ui/components/input";
 import { DataTable } from "@repo/ui/components/data-table";
+import { useQuery } from "@tanstack/react-query";
 
 import { Approval } from "@/types/approval";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-
 import { COLUMNS } from "@/app/approvals/columns";
-import { useQuery } from "@tanstack/react-query";
 import { approvalQueryKeys } from "@/services/approval/request";
 import { ApprovalDetailsDrawer } from "./approval-details-drawer";
-
-dayjs.extend(relativeTime);
 
 export function ApprovalsTable() {
   const [globalFilter, setGlobalFilter] = useState("");
