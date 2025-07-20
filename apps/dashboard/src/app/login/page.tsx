@@ -1,16 +1,27 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { Button } from "@repo/ui/components/button";
 import { Alert, AlertDescription } from "@repo/ui/components/alert";
 
 import { useRouter } from "next/navigation";
 import { AlertCircleIcon, Loader2Icon, Wallet } from "lucide-react";
 import { useConnectWallet } from "@/services/wallet";
+import { useWalletSession } from "@/hooks/use-wallet-session";
 
 export default function LoginPage() {
   const { push } = useRouter();
 
   const { mutate: connectWallet, error, isPending } = useConnectWallet();
+
+  const { currentAccount } = useWalletSession();
+
+  useEffect(() => {
+    if (currentAccount) {
+      push("/dashboard");
+    }
+  }, [currentAccount, push]);
 
   const connectMetaMask = async () => {
     connectWallet(undefined, {

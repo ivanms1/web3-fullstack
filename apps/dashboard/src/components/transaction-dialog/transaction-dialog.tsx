@@ -52,6 +52,7 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
     mutate: createTransaction,
     isPending,
     error,
+    reset: resetCreateTransaction,
   } = useCreateTransaction();
 
   const {
@@ -92,8 +93,16 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
     setOpen(false);
   };
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      reset();
+      resetCreateTransaction();
+    }
+    setOpen(open);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button className="w-full sm:w-auto">
           <SendHorizontalIcon />
@@ -201,8 +210,8 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
 
         {/* Error Display */}
         {error && (
-          <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-            <p className="text-sm text-red-600 dark:text-red-400">
+          <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg max-w-sm">
+            <p className="text-sm text-red-600 dark:text-red-400 break-words">
               Error: {error.message}
             </p>
           </div>

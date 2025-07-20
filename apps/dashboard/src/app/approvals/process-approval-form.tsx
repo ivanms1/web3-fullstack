@@ -125,7 +125,7 @@ export function ProcessApprovalForm({
           {isPending ? (
             <>
               <Loader2 className="w-4 h-4 mr-2" />
-              Rejecting...
+              Processing...
             </>
           ) : (
             "Reject"
@@ -140,7 +140,7 @@ export function ProcessApprovalForm({
           {isPending ? (
             <>
               <Loader2 className="w-4 h-4 mr-2" />
-              Approving...
+              Processing...
             </>
           ) : (
             "Approve"
