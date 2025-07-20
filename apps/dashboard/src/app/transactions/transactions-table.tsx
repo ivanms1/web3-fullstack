@@ -61,7 +61,6 @@ export function TransactionsTable() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-semibold">All Transactions</h3>
           <p className="text-sm text-muted-foreground">
             {allTransactions?.length} total transactions
           </p>

@@ -75,6 +75,11 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
         description: data.description.trim(),
       },
       {
+        onSuccess: () => {
+          toast.success("Transaction created successfully");
+          reset();
+          setOpen(false);
+        },
         onError: () => {
           toast.error("Failed to create transaction");
         },

@@ -53,7 +53,7 @@ export default function MyWalletPage() {
               <span className="font-semibold">{ethBalance}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span>Mock Token</span>
+              <span>MT</span>
               <span className="font-semibold">{tokenBalance}</span>
             </div>
           </div>

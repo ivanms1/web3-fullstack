@@ -17,6 +17,7 @@ import { Separator } from "@repo/ui/components/separator";
 
 import { Transaction, TransactionStatus } from "@/types/transaction";
 import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
+import { RequestApprovalForm } from "./request-approval-form";
 
 const STATUS_CONFIG = {
   [TransactionStatus.Pending]: {
@@ -61,6 +62,14 @@ export function TransactionDetailsDrawer({
 
   const date = dayjs(transaction.timestamp * 1000);
   const formattedAmount = `${parseFloat(transaction.amount).toLocaleString()} MT`;
+
+  const handleFormSuccess = () => {
+    onOpenChange(false);
+  };
+
+  const handleFormCancel = () => {
+    onOpenChange(false);
+  };
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction="right">
@@ -157,11 +166,20 @@ export function TransactionDetailsDrawer({
         </div>
 
         <DrawerFooter>
-          <DrawerClose asChild>
-            <Button variant="outline" className="w-full">
-              Close
-            </Button>
-          </DrawerClose>
+          {transaction.status === TransactionStatus.Pending &&
+          !transaction.approvalId ? (
+            <RequestApprovalForm
+              transaction={transaction}
+              onSuccess={handleFormSuccess}
+              onCancel={handleFormCancel}
+            />
+          ) : (
+            <DrawerClose asChild>
+              <Button variant="outline" className="w-full">
+                Close
+              </Button>
+            </DrawerClose>
+          )}
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

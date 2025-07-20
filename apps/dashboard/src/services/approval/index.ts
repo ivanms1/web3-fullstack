@@ -3,11 +3,14 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
+import { ContractTransactionResponse } from "ethers/contract";
+
 import { approvalAPI } from "@/api/approval";
 import type { Approval } from "@/types/approval";
 import { ApprovalStatus } from "@/types/approval";
-import { approvalQueryKeys } from "./request";
-import { ContractTransactionResponse } from "ethers/contract";
+import { approvalQueryKeys } from "@/services/approval/request";
+
+import { transactionQueryKeys } from "@/services/transaction/request";
 
 export function useProcessApproval(
   options?: MutationOptions<ContractTransactionResponse, Error, Approval>
@@ -22,14 +25,40 @@ export function useProcessApproval(
       ),
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries(approvalQueryKeys.getAllApprovals());
+      queryClient.invalidateQueries(approvalQueryKeys.getPendingApprovals());
+      queryClient.invalidateQueries(transactionQueryKeys.getAllTransactions());
+      queryClient.invalidateQueries(transactionQueryKeys.getTransactionCount());
       options?.onSuccess?.(data, variables, context);
     },
   });
 }
 
-export function useRequestApproval() {
+export function useRequestApproval(
+  options?: MutationOptions<
+    ContractTransactionResponse,
+    Error,
+    {
+      transactionId: number;
+      reason: string;
+    }
+  >
+) {
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (approval: Approval) =>
-      approvalAPI.requestApproval(approval.transactionId, approval.reason),
+    mutationFn: ({
+      transactionId,
+      reason,
+    }: {
+      transactionId: number;
+      reason: string;
+    }) => approvalAPI.requestApproval(transactionId, reason),
+    onSuccess: (data, variables, context) => {
+      console.log("onSuccess", data, variables, context);
+      queryClient.invalidateQueries(approvalQueryKeys.getAllApprovals());
+      queryClient.invalidateQueries(approvalQueryKeys.getPendingApprovals());
+      queryClient.invalidateQueries(transactionQueryKeys.getAllTransactions());
+      queryClient.invalidateQueries(transactionQueryKeys.getTransactionCount());
+      options?.onSuccess?.(data, variables, context);
+    },
   });
 }
