@@ -1,23 +1,42 @@
-import { useMutation } from "@tanstack/react-query";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { userAPI } from "@/api/user";
-import type { User } from "@/types/user";
+import { UserRole } from "@/types/user";
+import { userQueryKeys } from "./request";
 
 export function useRegisterUser() {
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (user: User) =>
-      userAPI.registerUser(
-        user.walletAddress,
-        user.name,
-        user.email,
-        user.role
-      ),
+    mutationFn: ({
+      walletAddress,
+      name,
+      email,
+      role,
+    }: {
+      walletAddress: string;
+      name: string;
+      email: string;
+      role: UserRole;
+    }) => userAPI.registerUser(walletAddress, name, email, role),
+    onSuccess: () => {
+      queryClient.invalidateQueries(userQueryKeys.getUserCount());
+    },
   });
 }
 
 export function useUpdateUserRole() {
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (user: User) =>
-      userAPI.updateUserRole(user.walletAddress, user.role),
+    mutationFn: ({
+      userAddress,
+      newRole,
+    }: {
+      userAddress: string;
+      newRole: UserRole;
+    }) => userAPI.updateUserRole(userAddress, newRole),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries(
+        userQueryKeys.getUser(variables.userAddress)
+      );
+    },
   });
 }

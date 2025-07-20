@@ -54,6 +54,23 @@ export class TransactionAPI {
     return await financialPlatform.getUserTransactions?.(userAddress);
   }
 
+  public async getTransactionsByIds(
+    transactionIds: number[]
+  ): Promise<Transaction[]> {
+    const transactions: Transaction[] = [];
+
+    for (const transactionId of transactionIds) {
+      try {
+        const transaction = await this.getTransaction(transactionId);
+        transactions.push(transaction);
+      } catch (error) {
+        console.warn(`Failed to fetch transaction ${transactionId}:`, error);
+      }
+    }
+
+    return transactions;
+  }
+
   public async getTransactionCount(): Promise<number> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {

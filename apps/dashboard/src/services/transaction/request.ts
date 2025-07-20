@@ -12,6 +12,10 @@ export const transactionQueryKeys = createQueryKeys(QUERY_KEYS.TRANSACTION, {
     queryKey: [userAddress],
     queryFn: () => transactionAPI.getUserTransactions(userAddress),
   }),
+  getTransactionsByIds: (transactionIds: number[]) => ({
+    queryKey: [transactionIds],
+    queryFn: () => transactionAPI.getTransactionsByIds(transactionIds),
+  }),
   getAllTransactions: () => ({
     queryKey: ["all-transactions"],
     queryFn: () => transactionAPI.getAllTransactions(),

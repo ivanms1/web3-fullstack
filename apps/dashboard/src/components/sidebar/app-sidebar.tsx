@@ -50,7 +50,7 @@ const NAV_ITEMS = {
       icon: Folder,
     },
     {
-      title: "Users",
+      title: "User Lookup",
       url: "/users",
       icon: Users,
     },

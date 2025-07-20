@@ -1,12 +1,13 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { userQueryKeys } from "@/services/user/request";
 import { toast } from "sonner";
+
 import { balanceQueryKeys } from "@/services/balance/request";
+import { useWalletSession } from "@/hooks/use-wallet-session";
 
 export default function MyWalletPage() {
-  const { data: user } = useQuery({ ...userQueryKeys.getCurrentUser() });
+  const { user } = useWalletSession();
 
   const { data: ethBalance } = useQuery({
     ...balanceQueryKeys.getCurrentEthBalance(),

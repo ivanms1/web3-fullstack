@@ -1,12 +1,14 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+
 import { userQueryKeys } from "@/services/user/request";
 import { transactionQueryKeys } from "@/services/transaction/request";
 import { approvalQueryKeys } from "@/services/approval/request";
+import { useWalletSession } from "@/hooks/use-wallet-session";
 
 export default function DashboardPage() {
-  const { data: user } = useQuery({ ...userQueryKeys.getCurrentUser() });
+  const { user } = useWalletSession();
 
   const { data: myTransactions } = useQuery({
     ...transactionQueryKeys.getUserTransactions(user?.walletAddress ?? ""),
@@ -64,7 +66,7 @@ export default function DashboardPage() {
           </p>
         </div>
         <div className="p-6 bg-card rounded-lg border">
-          <h3 className="text-lg font-semibold mb-2">Users</h3>
+          <h3 className="text-lg font-semibold mb-2">User Lookup</h3>
           <p className="text-2xl font-bold text-green-600">{userCount}</p>
         </div>
       </div>

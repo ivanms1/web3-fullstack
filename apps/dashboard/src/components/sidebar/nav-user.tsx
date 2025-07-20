@@ -1,6 +1,6 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
 
+import { LogOut, MoreVertical, User } from "lucide-react";
 import { Avatar, AvatarFallback } from "@repo/ui/components/avatar";
 import {
   DropdownMenu,
@@ -18,12 +18,11 @@ import {
   useSidebar,
 } from "@repo/ui/components/sidebar";
 
-import { userQueryKeys } from "@/services/user/request";
-import { LogOut, MoreVertical, User } from "lucide-react";
+import { useWalletSession } from "@/hooks/use-wallet-session";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
-  const { data: user } = useQuery({ ...userQueryKeys.getCurrentUser() });
+  const { user } = useWalletSession();
 
   if (!user) {
     return null;
