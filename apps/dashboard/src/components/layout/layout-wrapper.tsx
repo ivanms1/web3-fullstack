@@ -2,8 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import { SidebarInset, SidebarProvider } from "@repo/ui/components/sidebar";
+
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { SiteHeader } from "@/components/header/site-header";
+
+import { useWalletSession } from "@/hooks/use-wallet-session";
+
+import { Loader2Icon } from "lucide-react";
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -11,11 +16,21 @@ interface LayoutWrapperProps {
 }
 
 export function LayoutWrapper({ children, defaultOpen }: LayoutWrapperProps) {
+  const { isInitializing } = useWalletSession();
+
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
 
   if (isLoginPage) {
     return <>{children}</>;
+  }
+
+  if (isInitializing) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader2Icon className="w-8 h-8 animate-spin" />
+      </div>
+    );
   }
 
   return (
