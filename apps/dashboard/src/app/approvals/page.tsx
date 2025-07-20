@@ -9,7 +9,6 @@ export default function ApprovalsPage() {
           Manage your token approvals and permissions
         </p>
       </div>
-
       <ApprovalsTable />
     </div>
   );

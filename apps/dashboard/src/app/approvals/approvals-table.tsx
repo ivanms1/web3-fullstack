@@ -11,11 +11,16 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { COLUMNS } from "@/app/approvals/columns";
 import { useQuery } from "@tanstack/react-query";
 import { approvalQueryKeys } from "@/services/approval/request";
+import { ApprovalDetailsDrawer } from "./approval-details-drawer";
 
 dayjs.extend(relativeTime);
 
 export function ApprovalsTable() {
   const [globalFilter, setGlobalFilter] = useState("");
+  const [selectedApproval, setSelectedApproval] = useState<Approval | null>(
+    null
+  );
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   // Fetch all approvals
   const { data: allApprovals, isLoading: isLoadingAll } = useQuery({
@@ -41,6 +46,11 @@ export function ApprovalsTable() {
     );
   });
 
+  const handleRowClick = (approval: Approval) => {
+    setSelectedApproval(approval);
+    setDrawerOpen(true);
+  };
+
   if (isLoadingAll || isLoadingPending) {
     return (
       <div className="space-y-3">
@@ -55,7 +65,6 @@ export function ApprovalsTable() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-semibold">All Approvals</h3>
           <p className="text-sm text-muted-foreground">
             {allApprovals?.length} total approvals / {pendingApprovals?.length}{" "}
             pending
@@ -73,7 +82,17 @@ export function ApprovalsTable() {
         </div>
       </div>
 
-      <DataTable columns={COLUMNS} data={filteredData || []} />
+      <DataTable
+        columns={COLUMNS}
+        data={filteredData || []}
+        onRowClick={handleRowClick}
+      />
+
+      <ApprovalDetailsDrawer
+        approval={selectedApproval}
+        open={drawerOpen}
+        onOpenChange={setDrawerOpen}
+      />
     </div>
   );
 }

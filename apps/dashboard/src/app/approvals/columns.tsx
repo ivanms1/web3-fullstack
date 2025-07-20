@@ -5,6 +5,8 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@repo/ui/components/badge";
 
+import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
+
 import { Approval, ApprovalStatus, ApprovalType } from "@/types/approval";
 
 dayjs.extend(relativeTime);
@@ -21,14 +23,18 @@ export const COLUMNS: ColumnDef<Approval>[] = [
     accessorKey: "requester",
     header: "Requester",
     cell: ({ row }) => (
-      <div className="font-mono">{row.getValue("requester")}</div>
+      <div className="font-mono">
+        {truncateWalletAddress(row.getValue("requester"))}
+      </div>
     ),
   },
   {
     accessorKey: "approver",
     header: "Approver",
     cell: ({ row }) => (
-      <div className="font-mono">{row.getValue("approver")}</div>
+      <div className="font-mono">
+        {truncateWalletAddress(row.getValue("approver"))}
+      </div>
     ),
   },
   {
