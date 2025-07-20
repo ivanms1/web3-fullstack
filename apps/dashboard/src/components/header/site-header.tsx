@@ -3,6 +3,7 @@ import { SidebarTrigger } from "@repo/ui/components/sidebar";
 
 import { ModeToggle } from "@/components/mode-toggle/mode-toggle";
 import { NetworkDisplay } from "@/components/network-display/network-display";
+import { EventsSidebar } from "@/components/events-sidebar/events-sidebar";
 
 export function SiteHeader() {
   return (
@@ -16,6 +17,7 @@ export function SiteHeader() {
         <NetworkDisplay />
         <div className="ml-auto flex items-center gap-2">
           <ModeToggle />
+          <EventsSidebar />
         </div>
       </div>
     </header>

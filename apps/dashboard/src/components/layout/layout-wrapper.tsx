@@ -7,6 +7,7 @@ import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { SiteHeader } from "@/components/header/site-header";
 
 import { useWalletSession } from "@/hooks/use-wallet-session";
+import { useEventListener } from "@/hooks/use-event-listener";
 
 import { Loader2Icon } from "lucide-react";
 
@@ -17,6 +18,8 @@ interface LayoutWrapperProps {
 
 export function LayoutWrapper({ children, defaultOpen }: LayoutWrapperProps) {
   const { isInitializing } = useWalletSession();
+
+  useEventListener();
 
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";

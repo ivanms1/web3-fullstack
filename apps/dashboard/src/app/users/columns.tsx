@@ -6,21 +6,7 @@ import { Badge } from "@repo/ui/components/badge";
 
 import { User, UserRole } from "@/types/user";
 import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
-
-const ROLE_CONFIG = {
-  [UserRole.Regular]: {
-    label: "Regular",
-    variant: "secondary" as const,
-  },
-  [UserRole.Manager]: {
-    label: "Manager",
-    variant: "default" as const,
-  },
-  [UserRole.Admin]: {
-    label: "Admin",
-    variant: "default" as const,
-  },
-};
+import { ROLE_CONFIG } from "@/const";
 
 export const COLUMNS: ColumnDef<User>[] = [
   {

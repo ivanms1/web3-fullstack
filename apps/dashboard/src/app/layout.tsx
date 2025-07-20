@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
 import { Toaster } from "@repo/ui/components/sonner";
-
 import type { Metadata } from "next";
 
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";

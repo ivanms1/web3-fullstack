@@ -31,24 +31,11 @@ import { UserTransactionsTable } from "./user-transactions-table";
 import { RegisterUserDialog } from "./register-user-dialog";
 
 import { useWalletSession } from "@/hooks/use-wallet-session";
+import { ROLE_CONFIG } from "@/const";
 
 const getRoleConfig = (role: UserRole) => {
-  const roleConfig = {
-    [UserRole.Regular]: {
-      label: "Regular",
-      variant: "secondary" as const,
-    },
-    [UserRole.Manager]: {
-      label: "Manager",
-      variant: "default" as const,
-    },
-    [UserRole.Admin]: {
-      label: "Admin",
-      variant: "default" as const,
-    },
-  };
   return (
-    roleConfig[role] || { label: "Unknown", variant: "secondary" as const }
+    ROLE_CONFIG[role] || { label: "Unknown", variant: "secondary" as const }
   );
 };
 
