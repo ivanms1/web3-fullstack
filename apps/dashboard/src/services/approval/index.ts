@@ -1,9 +1,4 @@
-import {
-  MutationOptions,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { ContractTransactionResponse } from "ethers/contract";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { approvalAPI } from "@/api/approval";
 import type { Approval } from "@/types/approval";
@@ -12,9 +7,7 @@ import { approvalQueryKeys } from "@/services/approval/request";
 
 import { transactionQueryKeys } from "@/services/transaction/request";
 
-export function useProcessApproval(
-  options?: MutationOptions<ContractTransactionResponse, Error, Approval>
-) {
+export function useProcessApproval() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (approval: Approval) =>
@@ -23,26 +16,16 @@ export function useProcessApproval(
         approval.status === ApprovalStatus.Approved,
         approval.reason
       ),
-    onSuccess: (data, variables, context) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(approvalQueryKeys.getAllApprovals());
       queryClient.invalidateQueries(approvalQueryKeys.getPendingApprovals());
       queryClient.invalidateQueries(transactionQueryKeys.getAllTransactions());
       queryClient.invalidateQueries(transactionQueryKeys.getTransactionCount());
-      options?.onSuccess?.(data, variables, context);
     },
   });
 }
 
-export function useRequestApproval(
-  options?: MutationOptions<
-    ContractTransactionResponse,
-    Error,
-    {
-      transactionId: number;
-      reason: string;
-    }
-  >
-) {
+export function useRequestApproval() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({
@@ -52,13 +35,11 @@ export function useRequestApproval(
       transactionId: number;
       reason: string;
     }) => approvalAPI.requestApproval(transactionId, reason),
-    onSuccess: (data, variables, context) => {
-      console.log("onSuccess", data, variables, context);
+    onSuccess: () => {
       queryClient.invalidateQueries(approvalQueryKeys.getAllApprovals());
       queryClient.invalidateQueries(approvalQueryKeys.getPendingApprovals());
       queryClient.invalidateQueries(transactionQueryKeys.getAllTransactions());
       queryClient.invalidateQueries(transactionQueryKeys.getTransactionCount());
-      options?.onSuccess?.(data, variables, context);
     },
   });
 }
