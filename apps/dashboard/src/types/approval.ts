@@ -1,16 +1,21 @@
 // Approval status enum
-export enum ApprovalStatus {
-  Pending = 0,
-  Approved = 1,
-  Rejected = 2,
-}
+export const ApprovalStatus = {
+  Pending: 0,
+  Approved: 1,
+  Rejected: 2,
+} as const;
+
+export type ApprovalStatus =
+  (typeof ApprovalStatus)[keyof typeof ApprovalStatus];
 
 // Approval type enum
-export enum ApprovalType {
-  Transaction = 0,
-  UserRole = 1,
-  SystemConfig = 2,
-}
+export const ApprovalType = {
+  Transaction: 0,
+  UserRole: 1,
+  SystemConfig: 2,
+} as const;
+
+export type ApprovalType = (typeof ApprovalType)[keyof typeof ApprovalType];
 
 // Approval interface
 export interface Approval {

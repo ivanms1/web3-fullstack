@@ -1,4 +1,4 @@
-import { ethers, formatEther, parseEther } from "ethers";
+import { ethers } from "ethers";
 import { contractManager } from "./contract-manager";
 import { Transaction, TransactionStatus } from "@/types/transaction";
 
@@ -15,7 +15,7 @@ export class TransactionAPI {
       id: Number(result.id),
       from: result.from,
       to: result.to,
-      amount: formatEther(result.amount),
+      amount: ethers.formatEther(result.amount),
       description: result.description,
       status: Number(result.status) as TransactionStatus,
       timestamp: Number(result.timestamp),
@@ -88,7 +88,7 @@ export class TransactionAPI {
     if (!financialPlatform) {
       throw new Error("Financial Platform contract not initialized");
     }
-    const value = parseEther(amount);
+    const value = ethers.parseEther(amount);
     return await financialPlatform.createTransaction?.(to, value, description);
   }
 

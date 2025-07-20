@@ -1,10 +1,13 @@
 // Transaction status enum
-export enum TransactionStatus {
-  Pending = 0,
-  Active = 1,
-  Completed = 2,
-  Rejected = 3,
-}
+export const TransactionStatus = {
+  Pending: 0,
+  Active: 1,
+  Completed: 2,
+  Rejected: 3,
+} as const;
+
+export type TransactionStatus =
+  (typeof TransactionStatus)[keyof typeof TransactionStatus];
 
 // Transaction interface
 export interface Transaction {

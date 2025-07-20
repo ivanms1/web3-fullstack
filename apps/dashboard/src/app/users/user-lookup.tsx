@@ -17,7 +17,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/select";
-import { Search, User, Wallet, Mail, Calendar, Activity } from "lucide-react";
+import {
+  Search,
+  User as UserIcon,
+  Wallet,
+  Mail,
+  Calendar,
+  Activity,
+} from "lucide-react";
 import { toast } from "sonner";
 
 import { UserRole } from "@/types/user";
@@ -209,7 +216,7 @@ export function UserLookup() {
             <div className="bg-card rounded-lg border">
               <div className="p-6 border-b">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <User className="w-5 h-5" />
+                  <UserIcon className="w-5 h-5" />
                   User Information
                 </h3>
               </div>
@@ -229,7 +236,7 @@ export function UserLookup() {
 
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <User className="w-4 h-4" />
+                      <UserIcon className="w-4 h-4" />
                       Name
                     </div>
                     <p className="font-medium">{user.name}</p>
