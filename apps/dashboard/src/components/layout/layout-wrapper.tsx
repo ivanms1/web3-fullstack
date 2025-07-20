@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { SidebarInset, SidebarProvider } from "@repo/ui/components/sidebar";
+import { SidebarProvider } from "@repo/ui/components/sidebar";
 
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { SiteHeader } from "@/components/header/site-header";
@@ -46,10 +46,10 @@ export function LayoutWrapper({ children, defaultOpen }: LayoutWrapperProps) {
       }
     >
       <AppSidebar variant="inset" />
-      <SidebarInset>
+      <div className="flex flex-1 flex-col">
         <SiteHeader />
-        <div className="flex flex-1 flex-col">{children}</div>
-      </SidebarInset>
+        {children}
+      </div>
     </SidebarProvider>
   );
 }
