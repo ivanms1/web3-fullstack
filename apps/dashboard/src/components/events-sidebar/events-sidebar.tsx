@@ -92,8 +92,8 @@ export function EventsSidebar() {
         <SheetHeader>
           <SheetTitle className="flex items-center justify-between">
             <span>Blockchain Events</span>
-            <div className="flex items-center gap-2">
-              {events.length > 0 && (
+            <div className="flex items-center gap-2 mr-4">
+              {events.length > -1 && (
                 <Button
                   variant="ghost"
                   size="sm"

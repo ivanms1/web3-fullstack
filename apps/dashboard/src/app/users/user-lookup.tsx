@@ -152,7 +152,7 @@ export function UserLookup() {
             <Search className="w-5 h-5" />
             Search User
           </h3>
-          <RegisterUserDialog />
+          {currentUser?.role === UserRole.Admin && <RegisterUserDialog />}
         </div>
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">

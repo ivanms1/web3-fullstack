@@ -14,8 +14,10 @@ import { Button } from "@repo/ui/components/button";
 import { Separator } from "@repo/ui/components/separator";
 
 import { Approval, ApprovalStatus, ApprovalType } from "@/types/approval";
+import { useWalletSession } from "@/hooks/use-wallet-session";
 import { ProcessApprovalForm } from "./process-approval-form";
 import { dayjs } from "@/lib/dayjs";
+import { UserRole } from "@/types/user";
 
 const TYPE_LABELS = {
   [ApprovalType.Transaction]: "Transaction",
@@ -49,6 +51,8 @@ export function ApprovalDetailsDrawer({
   open,
   onOpenChange,
 }: ApprovalDetailsDrawerProps) {
+  const { user } = useWalletSession();
+
   if (!approval) {
     return null;
   }
@@ -67,6 +71,9 @@ export function ApprovalDetailsDrawer({
   const handleFormCancel = () => {
     onOpenChange(false);
   };
+
+  const isApprover =
+    user?.role === UserRole.Manager || user?.role === UserRole.Admin;
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction="right">
@@ -140,7 +147,7 @@ export function ApprovalDetailsDrawer({
         </div>
 
         <DrawerFooter>
-          {approval.status === ApprovalStatus.Pending ? (
+          {approval.status === ApprovalStatus.Pending && isApprover ? (
             <ProcessApprovalForm
               approval={approval}
               onSuccess={handleFormSuccess}
