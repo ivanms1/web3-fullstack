@@ -77,7 +77,7 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
       },
       {
         onSuccess: () => {
-          toast.success("Transaction created successfully");
+          toast.success("Transaction has started processing");
           reset();
           setOpen(false);
         },

@@ -79,7 +79,7 @@ export function RegisterUserDialog({ onSuccess }: RegisterUserDialogProps) {
       },
       {
         onSuccess: () => {
-          toast.success("User registered successfully");
+          toast.success("User registration has started processing");
           reset();
           setOpen(false);
           onSuccess?.();

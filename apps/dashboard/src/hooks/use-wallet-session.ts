@@ -56,7 +56,7 @@ export function useWalletSession() {
     const handleAccountsChanged = () => {
       // Invalidate and refetch current user data when account changes
       queryClient.invalidateQueries();
-      toast.success("Wallet account changed", {
+      toast.info("Wallet account changed", {
         id: "wallet-account-changed",
       });
     };

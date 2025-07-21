@@ -36,6 +36,14 @@ const config = {
       gasPrice: "auto",
       gas: "auto",
     },
+    sepolia: {
+      url: process.env.SEPOLIA_RPC_URL || "https://ethereum-sepolia.publicnode.com",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 11155111,
+      timeout: 120000, // 2 minutes timeout
+      gasPrice: "auto",
+      gas: "auto",
+    },
   },
   etherscan: {
     apiKey: {

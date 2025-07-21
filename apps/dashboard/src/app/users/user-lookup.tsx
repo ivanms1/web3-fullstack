@@ -132,7 +132,7 @@ export function UserLookup() {
       },
       {
         onSuccess: () => {
-          toast.success("User role updated successfully");
+          toast.success("User role update has started processing");
         },
         onError: () => {
           toast.error("Failed to update user role");

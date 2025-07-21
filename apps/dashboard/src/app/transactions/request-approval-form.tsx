@@ -58,7 +58,7 @@ export function RequestApprovalForm({
       },
       {
         onSuccess: () => {
-          toast.success("Approval requested successfully");
+          toast.success("Approval request has started processing");
           reset();
           onSuccess();
         },

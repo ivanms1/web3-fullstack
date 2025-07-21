@@ -87,7 +87,7 @@ export default function LoginPage() {
               <Alert variant="destructive">
                 <AlertCircleIcon className="h-4 w-4" />
                 <AlertDescription>
-                  Please register your account to continue
+                  Please contact an admin to register your account
                 </AlertDescription>
               </Alert>
             )}
