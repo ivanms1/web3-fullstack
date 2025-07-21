@@ -17389,6 +17389,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web3-fullstack@workspace:."
   dependencies:
+    husky: "npm:^9.1.7"
+    lint-staged: "npm:^16.1.2"
     prettier: "npm:^3.6.2"
     turbo: "npm:^2.5.5"
     typescript: "npm:5.8.3"
