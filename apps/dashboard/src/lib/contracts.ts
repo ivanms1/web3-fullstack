@@ -1,4 +1,6 @@
-import deploymentInfo from "./deployment-info.json";
+import { getDeploymentInfo } from "@/utils/getDeploymentInfo";
+
+const deploymentInfo = getDeploymentInfo();
 
 // Contract ABIs and addresses
 export const CONTRACT_ADDRESSES = deploymentInfo.contracts;
