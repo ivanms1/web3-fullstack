@@ -30,11 +30,6 @@ import {
 const NAV_ITEMS = {
   navMain: [
     {
-      title: "Home",
-      url: "/dashboard",
-      icon: LayoutDashboard,
-    },
-    {
       title: "My Wallet",
       url: "/my-wallet",
       icon: List,
@@ -79,7 +74,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <Link href="/dashboard">
+              <Link href="/">
                 <LayoutDashboard className="!size-5" />
                 <span className="text-base font-semibold">Dashboard</span>
               </Link>

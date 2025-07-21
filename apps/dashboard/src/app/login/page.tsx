@@ -21,14 +21,14 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (currentAccount && user && userIsRegistered) {
-      push("/dashboard");
+      push("/");
     }
   }, [currentAccount, push, user, userIsRegistered]);
 
   const connectMetaMask = async () => {
     connectWallet(undefined, {
       onSuccess: () => {
-        push("/dashboard");
+        push("/");
       },
     });
   };
