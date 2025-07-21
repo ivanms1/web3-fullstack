@@ -23,7 +23,6 @@ import {
   HelpCircle,
   LayoutDashboard,
   List,
-  Settings,
   Users,
 } from "lucide-react";
 
@@ -51,11 +50,6 @@ const NAV_ITEMS = {
     },
   ],
   navSecondary: [
-    {
-      title: "Settings",
-      url: "/settings",
-      icon: Settings,
-    },
     {
       title: "Get Help",
       url: "/help",

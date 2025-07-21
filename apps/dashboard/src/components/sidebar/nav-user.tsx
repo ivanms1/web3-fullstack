@@ -1,6 +1,7 @@
 "use client";
 
 import { LogOut, MoreVertical, User } from "lucide-react";
+import Link from "next/link";
 import { Avatar, AvatarFallback } from "@repo/ui/components/avatar";
 import {
   DropdownMenu,
@@ -78,10 +79,12 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <User />
-                Account
-              </DropdownMenuItem>
+              <Link href="/account" className="w-full">
+                <DropdownMenuItem>
+                  <User />
+                  Account
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
