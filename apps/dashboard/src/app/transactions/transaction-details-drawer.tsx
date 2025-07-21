@@ -53,7 +53,7 @@ export function TransactionDetailsDrawer({
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction="right">
-      <DrawerContent className="min-w-[500px]">
+      <DrawerContent className="sm:min-w-[500px] min-w-full">
         <DrawerHeader>
           <DrawerTitle>Transaction Details</DrawerTitle>
           <DrawerDescription>Transaction #{transaction.id}</DrawerDescription>

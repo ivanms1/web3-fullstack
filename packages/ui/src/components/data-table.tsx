@@ -34,7 +34,7 @@ function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border overflow-x-auto max-sm:w-[calc(100vw-48px)]">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

@@ -88,16 +88,11 @@ export function EventsSidebar() {
           )}
         </Button>
       </SheetTrigger>
-      <SheetContent
-        side="right"
-        className="w-[400px] sm:w-[540px]"
-        hideCloseButton
-      >
+      <SheetContent side="right" className="w-[400px] sm:w-[540px]">
         <SheetHeader>
           <SheetTitle className="flex items-center justify-between">
             <span>Blockchain Events</span>
             <div className="flex items-center gap-2">
-              <Badge variant="outline">{events.length} events</Badge>
               {events.length > 0 && (
                 <Button
                   variant="ghost"

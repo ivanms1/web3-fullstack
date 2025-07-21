@@ -19,6 +19,9 @@ import {
 } from "@repo/ui/components/sidebar";
 
 import { useWalletSession } from "@/hooks/use-wallet-session";
+import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
+
+import { ROLE_CONFIG } from "@/const";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -45,7 +48,10 @@ export function NavUser() {
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
                 <span className="text-muted-foreground truncate text-xs">
-                  {user.email}
+                  {truncateWalletAddress(user.walletAddress)}
+                </span>
+                <span className="text-muted-foreground truncate text-xs">
+                  {ROLE_CONFIG[user.role].label}
                 </span>
               </div>
               <MoreVertical className="ml-auto size-4" />

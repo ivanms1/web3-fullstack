@@ -5,6 +5,8 @@ import { Network, Loader2Icon } from "lucide-react";
 
 import { networkQueryKeys } from "@/services/network/request";
 import { contractManager } from "@/api/contract-manager";
+import { useWalletSession } from "@/hooks/use-wallet-session";
+import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
 
 export function NetworkDisplay() {
   const {
@@ -16,6 +18,8 @@ export function NetworkDisplay() {
     enabled: contractManager.isInitialized(),
     refetchInterval: 15000, // Refetch every 15 seconds to get updated block number
   });
+
+  const { currentAccount } = useWalletSession();
 
   if (isLoading) {
     return (
@@ -45,6 +49,12 @@ export function NetworkDisplay() {
         </span>
         <span className="text-xs text-gray-500">
           Block #{network.blockNumber}
+        </span>
+        <span className="text-xs text-gray-500 truncate hidden sm:block">
+          {currentAccount}
+        </span>
+        <span className="text-xs text-gray-500 truncate sm:hidden block">
+          {truncateWalletAddress(currentAccount ?? "")}
         </span>
       </div>
     </div>

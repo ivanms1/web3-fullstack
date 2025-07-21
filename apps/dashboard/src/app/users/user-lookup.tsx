@@ -147,11 +147,12 @@ export function UserLookup() {
     <div className="space-y-6">
       {/* Search Form */}
       <div className="bg-card rounded-lg border">
-        <div className="p-6 border-b">
+        <div className="p-6 border-b flex items-center justify-between">
           <h3 className="text-lg font-semibold flex items-center gap-2">
             <Search className="w-5 h-5" />
             Search User
           </h3>
+          <RegisterUserDialog />
         </div>
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
@@ -180,7 +181,6 @@ export function UserLookup() {
                 )}
               </div>
             </form>
-            <RegisterUserDialog />
           </div>
         </div>
       </div>
@@ -228,8 +228,10 @@ export function UserLookup() {
                       <Wallet className="w-4 h-4" />
                       Wallet Address
                     </div>
-                    <p className="font-mono text-sm">{user.walletAddress}</p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="font-mono text-sm max-sm:hidden">
+                      {user.walletAddress}
+                    </p>
+                    <p className="font-mono text-sm max-sm:block hidden">
                       {truncateWalletAddress(user.walletAddress)}
                     </p>
                   </div>
@@ -316,45 +318,43 @@ export function UserLookup() {
 
           {/* User Transactions */}
           {user && (
-            <div className="bg-card rounded-lg border">
-              <div className="p-6">
-                {isLoadingTransactions || isLoadingTransactionDetails ? (
-                  <div className="flex items-center justify-center py-8">
-                    <div className="text-center">
-                      <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                      <p className="text-muted-foreground">
-                        Loading transactions...
-                      </p>
-                    </div>
-                  </div>
-                ) : transactionsError ? (
-                  <div className="text-center py-8">
-                    <p className="text-destructive mb-2">
-                      Failed to load transactions
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Unable to fetch user transactions
+            <div>
+              {isLoadingTransactions || isLoadingTransactionDetails ? (
+                <div className="flex items-center justify-center py-8">
+                  <div className="text-center">
+                    <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-muted-foreground">
+                      Loading transactions...
                     </p>
                   </div>
-                ) : userTransactions ? (
-                  <UserTransactionsTable
-                    transactions={userTransactions}
-                    userAddress={searchedAddress}
-                    isLoading={
-                      isLoadingTransactions || isLoadingTransactionDetails
-                    }
-                  />
-                ) : (
-                  <div className="text-center py-8">
-                    <p className="text-muted-foreground mb-2">
-                      No transactions found
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      This user has no transactions yet
-                    </p>
-                  </div>
-                )}
-              </div>
+                </div>
+              ) : transactionsError ? (
+                <div className="text-center py-8">
+                  <p className="text-destructive mb-2">
+                    Failed to load transactions
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Unable to fetch user transactions
+                  </p>
+                </div>
+              ) : userTransactions ? (
+                <UserTransactionsTable
+                  transactions={userTransactions}
+                  userAddress={searchedAddress}
+                  isLoading={
+                    isLoadingTransactions || isLoadingTransactionDetails
+                  }
+                />
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground mb-2">
+                    No transactions found
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    This user has no transactions yet
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </>

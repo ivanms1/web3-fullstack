@@ -70,7 +70,7 @@ export function ApprovalDetailsDrawer({
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction="right">
-      <DrawerContent className="min-w-[500px]">
+      <DrawerContent className="sm:min-w-[500px] min-w-full">
         <DrawerHeader>
           <DrawerTitle>Approval Details</DrawerTitle>
           <DrawerDescription>
