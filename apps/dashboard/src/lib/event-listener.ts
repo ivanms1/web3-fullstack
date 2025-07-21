@@ -1,16 +1,16 @@
-import { ethers } from "ethers";
-import { contractManager } from "@/api/contract-manager";
-import type { QueryClient } from "@tanstack/react-query";
-import { getDefaultStore } from "jotai";
+import { ethers } from 'ethers';
+import { contractManager } from '@/api/contract-manager';
+import type { QueryClient } from '@tanstack/react-query';
+import { getDefaultStore } from 'jotai';
 
-import { QUERY_KEYS } from "@/services/queryKeys";
-import { addEventAtom } from "@/store/events";
+import { QUERY_KEYS } from '@/services/queryKeys';
+import { addEventAtom } from '@/store/events';
 import {
   APPROVAL_STATUS_CONFIG,
   ROLE_CONFIG,
   TRANSACTION_STATUS_CONFIG,
-} from "@/const";
-import { EVENT_TYPES } from "@/types/event";
+} from '@/const';
+import { EVENT_TYPES } from '@/types/event';
 
 export class EventListener {
   private financialPlatform: ethers.Contract | null = null;
@@ -43,7 +43,7 @@ export class EventListener {
 
     // Transaction Events
     this.financialPlatform.on(
-      "TransactionCreated",
+      'TransactionCreated',
       (
         transactionId: ethers.BigNumberish,
         from: string,
@@ -55,7 +55,7 @@ export class EventListener {
           type: EVENT_TYPES.TRANSACTION_CREATED,
           title: `Transaction #${transactionId} created`,
           description: `${formattedAmount} MT from ${from.slice(0, 6)}...${from.slice(-4)} to ${to.slice(0, 6)}...${to.slice(-4)}`,
-          status: "success",
+          status: 'success',
           data: { transactionId, from, to, amount: formattedAmount },
         });
 
@@ -69,21 +69,21 @@ export class EventListener {
     );
 
     this.financialPlatform.on(
-      "TransactionStatusUpdated",
+      'TransactionStatusUpdated',
       (transactionId: ethers.BigNumberish, status: number) => {
         const serializedStatus = +status.toString();
         const statusName =
           TRANSACTION_STATUS_CONFIG[
             serializedStatus as keyof typeof TRANSACTION_STATUS_CONFIG
-          ]?.label || "Unknown";
+          ]?.label || 'Unknown';
 
         if (status === 2) {
           // Completed
           this.store.set(addEventAtom, {
             type: EVENT_TYPES.TRANSACTION_COMPLETED,
             title: `Transaction #${transactionId} completed`,
-            description: "Transaction has been successfully processed",
-            status: "success",
+            description: 'Transaction has been successfully processed',
+            status: 'success',
             data: { transactionId, status: statusName },
           });
         } else if (status === 3) {
@@ -91,8 +91,8 @@ export class EventListener {
           this.store.set(addEventAtom, {
             type: EVENT_TYPES.TRANSACTION_REJECTED,
             title: `Transaction #${transactionId} rejected`,
-            description: "Transaction was rejected",
-            status: "error",
+            description: 'Transaction was rejected',
+            status: 'error',
             data: { transactionId, status: statusName },
           });
         } else {
@@ -100,7 +100,7 @@ export class EventListener {
             type: EVENT_TYPES.TRANSACTION_STATUS_UPDATED,
             title: `Transaction #${transactionId} status updated`,
             description: `Status changed to ${statusName}`,
-            status: "info",
+            status: 'info',
             data: { transactionId, status: statusName },
           });
         }
@@ -119,7 +119,7 @@ export class EventListener {
 
     // Approval Events
     this.financialPlatform.on(
-      "ApprovalRequested",
+      'ApprovalRequested',
       (
         approvalId: ethers.BigNumberish,
         transactionId: ethers.BigNumberish,
@@ -129,7 +129,7 @@ export class EventListener {
           type: EVENT_TYPES.APPROVAL_REQUESTED,
           title: `Approval #${approvalId} requested`,
           description: `Transaction #${transactionId} needs approval from ${requester.slice(0, 6)}...${requester.slice(-4)}`,
-          status: "info",
+          status: 'info',
           data: { approvalId, transactionId, requester },
         });
 
@@ -146,13 +146,13 @@ export class EventListener {
     );
 
     this.financialPlatform.on(
-      "ApprovalProcessed",
+      'ApprovalProcessed',
       (approvalId: ethers.BigNumberish, status: number, approver: string) => {
         const serializedStatus = +status.toString();
         const statusName =
           APPROVAL_STATUS_CONFIG[
             serializedStatus as keyof typeof APPROVAL_STATUS_CONFIG
-          ]?.label || "Unknown";
+          ]?.label || 'Unknown';
 
         const isApproved = serializedStatus === 1;
 
@@ -160,7 +160,7 @@ export class EventListener {
           type: EVENT_TYPES.APPROVAL_PROCESSED,
           title: `Approval #${approvalId} ${statusName.toLowerCase()}`,
           description: `Approval was ${statusName.toLowerCase()} by ${approver.slice(0, 6)}...${approver.slice(-4)}`,
-          status: isApproved ? "success" : "error",
+          status: isApproved ? 'success' : 'error',
           data: { approvalId, status: statusName, approver },
         });
 
@@ -178,13 +178,13 @@ export class EventListener {
 
     // User Events
     this.financialPlatform.on(
-      "UserRegistered",
+      'UserRegistered',
       (userId: ethers.BigNumberish, walletAddress: string, name: string) => {
         this.store.set(addEventAtom, {
           type: EVENT_TYPES.USER_REGISTERED,
           title: `User registered`,
           description: `${name} - ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`,
-          status: "success",
+          status: 'success',
           data: { userId, walletAddress, name },
         });
 
@@ -198,18 +198,18 @@ export class EventListener {
     );
 
     this.financialPlatform.on(
-      "UserRoleUpdated",
+      'UserRoleUpdated',
       (userAddress: string, newRole: number) => {
         const serializedRole = +newRole.toString();
         const roleName =
           ROLE_CONFIG[serializedRole as keyof typeof ROLE_CONFIG]?.label ||
-          "Unknown";
+          'Unknown';
 
         this.store.set(addEventAtom, {
           type: EVENT_TYPES.USER_ROLE_UPDATED,
           title: `User role updated`,
           description: `${userAddress.slice(0, 6)}...${userAddress.slice(-4)} is now ${roleName}`,
-          status: "info",
+          status: 'info',
           data: { userAddress, newRole, roleName },
         });
 

@@ -1,4 +1,4 @@
-import { contractManager } from "./contract-manager";
+import { contractManager } from './contract-manager';
 
 export class NetworkAPI {
   public async getCurrentNetwork(): Promise<{
@@ -8,7 +8,7 @@ export class NetworkAPI {
   }> {
     const provider = contractManager.getProvider();
     if (!provider) {
-      throw new Error("Provider not initialized");
+      throw new Error('Provider not initialized');
     }
 
     const network = await provider.getNetwork();
@@ -16,13 +16,13 @@ export class NetworkAPI {
 
     // Map chain IDs to network names
     const networkNames: { [key: number]: string } = {
-      1: "Ethereum Mainnet",
-      5: "Goerli Testnet",
-      11155111: "Sepolia Testnet",
-      17000: "Holesky Testnet",
-      31337: "Hardhat Localhost",
-      137: "Polygon Mainnet",
-      80001: "Mumbai Testnet",
+      1: 'Ethereum Mainnet',
+      5: 'Goerli Testnet',
+      11155111: 'Sepolia Testnet',
+      17000: 'Holesky Testnet',
+      31337: 'Hardhat Localhost',
+      137: 'Polygon Mainnet',
+      80001: 'Mumbai Testnet',
     };
 
     const networkName =

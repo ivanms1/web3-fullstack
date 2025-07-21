@@ -7,10 +7,12 @@ A comprehensive decentralized financial platform built with Next.js, Solidity sm
 This is a [Turborepo](https://turborepo.com/) monorepo containing:
 
 ### Apps
+
 - **`apps/dashboard`**: Next.js web application with React dashboard
 - **`apps/contracts`**: Solidity smart contracts with Hardhat development environment
 
 ### Packages
+
 - **`packages/ui`**: Shared React component library
 - **`packages/eslint-config`**: ESLint configurations
 - **`packages/typescript-config`**: TypeScript configurations
@@ -18,7 +20,8 @@ This is a [Turborepo](https://turborepo.com/) monorepo containing:
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - Yarn package manager
 - **MetaMask wallet extension** (required for frontend app)
 
@@ -38,21 +41,27 @@ yarn install
 **⚠️ Important**: MetaMask is required to run the frontend application. Follow these steps for local development:
 
 #### 1. Start Local Hardhat Node
+
 ```bash
 cd apps/contracts
 yarn dev
 ```
+
 This starts a local Hardhat node at `http://localhost:8545`
 
 #### 2. Deploy Contracts Locally
+
 In a new terminal:
+
 ```bash
 cd apps/contracts
 yarn deploy:localhost
 ```
+
 This deploys the smart contracts to your local network and creates test data.
 
 #### 3. Set Up Frontend Environment Variables
+
 After deployment, you need to manually move the deployment file and convert it to environment variables:
 
 ```bash
@@ -69,6 +78,7 @@ This creates a `.env.local` file with the contract addresses and ABIs that the f
 #### 4. Configure MetaMask for Local Development
 
 **Add Local Network to MetaMask:**
+
 - Open MetaMask
 - Go to Settings → Networks → Add Network
 - Add network manually with these settings:
@@ -78,22 +88,27 @@ This creates a `.env.local` file with the contract addresses and ABIs that the f
   - **Currency Symbol**: ETH
 
 **Import Admin Account:**
+
 - Copy the admin private key from the deployment output (starts with `0x`)
 - In MetaMask, go to Account → Import Account
 - Paste the private key to import the admin account
 
 #### 5. Connect MetaMask to Local Network
+
 - Switch to the "Hardhat Local" network in MetaMask
 - Ensure you're using the imported admin account
 
 #### 6. Start the Frontend Application
+
 ```bash
 cd apps/dashboard
 yarn dev
 ```
+
 This starts the dashboard at `http://localhost:3000`
 
 #### 7. Connect MetaMask to the App
+
 - Open `http://localhost:3000` in your browser
 - Click "Connect Wallet" in the app
 - Approve the MetaMask connection request
@@ -111,6 +126,7 @@ yarn dev
 ```
 
 This will start:
+
 - Dashboard app at `http://localhost:3000`
 
 ## 📋 Project Structure
@@ -141,12 +157,14 @@ web3-fullstack/
 ## 🔧 Smart Contracts
 
 ### Overview
+
 The platform consists of two main smart contracts:
 
 - **`FinancialPlatform.sol`**: Main contract managing users, transactions, and approvals
 - **`MockToken.sol`**: ERC20 token for testing financial transactions
 
 ### Features
+
 - **Role-based Access Control**: Regular users, Managers, and Admins
 - **Transaction Workflow**: Create → Request Approval → Process → Complete
 - **User Management**: Registration and role assignment
@@ -156,6 +174,7 @@ The platform consists of two main smart contracts:
 ### Contract Functions
 
 #### User Management
+
 ```solidity
 registerUser(address walletAddress, string name, string email, UserRole role)
 updateUserRole(address userAddress, UserRole newRole)
@@ -163,6 +182,7 @@ getUser(address userAddress)
 ```
 
 #### Transaction Management
+
 ```solidity
 createTransaction(address to, uint256 amount, string description)
 requestApproval(uint256 transactionId, string reason)
@@ -171,6 +191,7 @@ getTransaction(uint256 transactionId)
 ```
 
 #### Approval System
+
 ```solidity
 processApproval(uint256 approvalId, bool approved, string reason)
 getApproval(uint256 approvalId)
@@ -236,6 +257,7 @@ The dashboard uses environment variables for contract configuration. To set up:
 3. **Restart development server**
 
 The script will:
+
 - Find `deployment-info*.json` files in the scripts directory
 - Convert them to environment variables in `.env.local`
 - Make contract addresses and ABIs available to the frontend
@@ -243,6 +265,7 @@ The script will:
 ### Available Scripts
 
 #### Contract Scripts (`apps/contracts/`)
+
 - `yarn compile` - Compile smart contracts
 - `yarn test` - Run contract tests
 - `yarn dev` - Start local Hardhat node
@@ -251,6 +274,7 @@ The script will:
 - `yarn deploy:holesky` - Deploy to Holesky testnet
 
 #### Dashboard Scripts (`apps/dashboard/`)
+
 - `yarn dev` - Start development server
 - `yarn build` - Build for production
 - `yarn start` - Start production server
@@ -262,12 +286,14 @@ The script will:
 ## 🔐 Security Features
 
 ### Smart Contract Security
+
 - **Access Control**: OpenZeppelin's AccessControl for role management
 - **Reentrancy Protection**: ReentrancyGuard to prevent reentrancy attacks
 - **Input Validation**: Comprehensive require statements and modifiers
 - **Event Logging**: All state changes are logged for audit trails
 
 ### Frontend Security
+
 - **Environment Variables**: Contract addresses and ABIs stored in environment variables
 - **Runtime Parsing**: JSON parsed at runtime with error handling
 - **Type Safety**: Full TypeScript support with strict type checking
@@ -276,12 +302,15 @@ The script will:
 ## 🌐 Network Configuration
 
 ### Supported Networks
+
 - **Localhost**: Development and testing (Chain ID: 31337)
 - **Sepolia**: Ethereum testnet (Chain ID: 11155111)
 - **Holesky**: Ethereum testnet (Chain ID: 17000)
 
 ### Environment Variables
+
 Create a `.env` file in `apps/contracts/` with:
+
 ```env
 PRIVATE_KEY=your_wallet_private_key
 SEPOLIA_RPC_URL=your_sepolia_rpc_endpoint
@@ -292,12 +321,14 @@ ETHERSCAN_API_KEY=your_etherscan_api_key
 ## 🧪 Testing
 
 ### Contract Testing
+
 ```bash
 cd apps/contracts
 yarn test
 ```
 
 Tests cover:
+
 - User registration and role assignment
 - Transaction creation and approval workflow
 - Access control validation
@@ -305,12 +336,14 @@ Tests cover:
 - Event emission verification
 
 ### Frontend Testing
+
 ```bash
 cd apps/dashboard
 yarn test
 ```
 
 Tests cover:
+
 - Component rendering
 - User interactions
 - API integrations
@@ -319,6 +352,7 @@ Tests cover:
 ## 🚀 Deployment
 
 ### Smart Contracts
+
 1. **Set environment variables** in `apps/contracts/.env`
 2. **Deploy to target network**:
    ```bash
@@ -328,6 +362,7 @@ Tests cover:
 3. **Verify contracts** on Etherscan (automatic with deployment)
 
 ### Dashboard
+
 1. **Convert deployment info** to environment variables
 2. **Build the application**:
    ```bash
@@ -339,6 +374,7 @@ Tests cover:
 ## 📚 API Reference
 
 ### Contract Manager
+
 The dashboard uses a `ContractManager` class to interact with smart contracts:
 
 ```typescript
@@ -353,7 +389,9 @@ await financialPlatform.createTransaction(to, amount, description);
 ```
 
 ### Environment Variables
+
 The app uses this environment variable:
+
 - `NEXT_PUBLIC_DEPLOYMENT_INFO`: JSON string with contract addresses, ABIs, and network information
 
 ## 🤝 Contributing
@@ -365,6 +403,7 @@ The app uses this environment variable:
 5. **Open a Pull Request**
 
 ### Development Guidelines
+
 - Follow TypeScript best practices
 - Write comprehensive tests
 - Use conventional commit messages
@@ -377,6 +416,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🆘 Support
 
 If you encounter any issues:
+
 1. Check the [Issues](https://github.com/your-repo/issues) page
 2. Create a new issue with detailed information
 3. Include steps to reproduce the problem

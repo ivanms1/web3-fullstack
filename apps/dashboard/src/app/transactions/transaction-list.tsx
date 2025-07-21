@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
-import { Button } from "@repo/ui/components/button";
-import { Input } from "@repo/ui/components/input";
+import { Button } from '@repo/ui/components/button';
+import { Input } from '@repo/ui/components/input';
 
-import { transactionQueryKeys } from "@/services/transaction/request";
-import { contractManager } from "@/api/contract-manager";
+import { transactionQueryKeys } from '@/services/transaction/request';
+import { contractManager } from '@/api/contract-manager';
 
-import { TransactionStatus, type Transaction } from "@/types/transaction";
+import { TransactionStatus, type Transaction } from '@/types/transaction';
 
-import { TRANSACTION_STATUS_CONFIG } from "@/const";
+import { TRANSACTION_STATUS_CONFIG } from '@/const';
 
 interface TransactionFilters {
   status?: TransactionStatus;
@@ -118,19 +118,19 @@ export function TransactionList() {
     const date = new Date(timestamp * 1000);
     return (
       date.toLocaleDateString() +
-      " " +
+      ' ' +
       date.getHours() +
-      ":" +
+      ':' +
       date.getMinutes()
     );
   };
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center p-8">
-        <div className="text-center">
-          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading transactions...</p>
+      <div className='flex items-center justify-center p-8'>
+        <div className='text-center'>
+          <div className='w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4'></div>
+          <p className='text-gray-600'>Loading transactions...</p>
         </div>
       </div>
     );
@@ -138,9 +138,9 @@ export function TransactionList() {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center p-8">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">Failed to load transactions</p>
+      <div className='flex items-center justify-center p-8'>
+        <div className='text-center'>
+          <p className='text-red-600 mb-4'>Failed to load transactions</p>
           <Button onClick={() => refetch()}>Retry</Button>
         </div>
       </div>
@@ -148,24 +148,24 @@ export function TransactionList() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className='flex items-center justify-between'>
         <div>
-          <h2 className="text-2xl font-bold">Transactions</h2>
-          <p className="text-gray-600">
+          <h2 className='text-2xl font-bold'>Transactions</h2>
+          <p className='text-gray-600'>
             {filteredTransactions?.length || 0} transactions found
           </p>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className='flex items-center space-x-2'>
           <Button
-            variant="outline"
-            size="sm"
+            variant='outline'
+            size='sm'
             onClick={() => setShowFilters(!showFilters)}
           >
             Filters
           </Button>
-          <Button variant="outline" size="sm" onClick={() => refetch()}>
+          <Button variant='outline' size='sm' onClick={() => refetch()}>
             Refresh
           </Button>
         </div>
@@ -173,30 +173,30 @@ export function TransactionList() {
 
       {/* Filters */}
       {showFilters && (
-        <div className="border rounded-lg p-4 space-y-4">
-          <h3 className="text-lg font-medium">Filters</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className='border rounded-lg p-4 space-y-4'>
+          <h3 className='text-lg font-medium'>Filters</h3>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
             {/* Search */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Search Description</label>
+            <div className='space-y-2'>
+              <label className='text-sm font-medium'>Search Description</label>
               <Input
-                placeholder="Search transactions..."
-                value={filters.searchTerm || ""}
+                placeholder='Search transactions...'
+                value={filters.searchTerm || ''}
                 onChange={(e) =>
-                  handleFilterChange("searchTerm", e.target.value)
+                  handleFilterChange('searchTerm', e.target.value)
                 }
               />
             </div>
 
             {/* Status Filter */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Status</label>
+            <div className='space-y-2'>
+              <label className='text-sm font-medium'>Status</label>
               <select
-                value={filters.status?.toString() || ""}
-                onChange={(e) => handleFilterChange("status", e.target.value)}
-                className="w-full p-2 border rounded-md"
+                value={filters.status?.toString() || ''}
+                onChange={(e) => handleFilterChange('status', e.target.value)}
+                className='w-full p-2 border rounded-md'
               >
-                <option value="">All statuses</option>
+                <option value=''>All statuses</option>
                 <option value={TransactionStatus.Pending.toString()}>
                   Pending
                 </option>
@@ -213,57 +213,57 @@ export function TransactionList() {
             </div>
 
             {/* From Address */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">From Address</label>
+            <div className='space-y-2'>
+              <label className='text-sm font-medium'>From Address</label>
               <Input
-                placeholder="0x..."
-                value={filters.fromAddress || ""}
+                placeholder='0x...'
+                value={filters.fromAddress || ''}
                 onChange={(e) =>
-                  handleFilterChange("fromAddress", e.target.value)
+                  handleFilterChange('fromAddress', e.target.value)
                 }
               />
             </div>
 
             {/* To Address */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">To Address</label>
+            <div className='space-y-2'>
+              <label className='text-sm font-medium'>To Address</label>
               <Input
-                placeholder="0x..."
-                value={filters.toAddress || ""}
+                placeholder='0x...'
+                value={filters.toAddress || ''}
                 onChange={(e) =>
-                  handleFilterChange("toAddress", e.target.value)
+                  handleFilterChange('toAddress', e.target.value)
                 }
               />
             </div>
 
             {/* Amount Range */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Min Amount (MT)</label>
+            <div className='space-y-2'>
+              <label className='text-sm font-medium'>Min Amount (MT)</label>
               <Input
-                type="number"
-                placeholder="0"
-                value={filters.minAmount || ""}
+                type='number'
+                placeholder='0'
+                value={filters.minAmount || ''}
                 onChange={(e) =>
-                  handleFilterChange("minAmount", e.target.value)
+                  handleFilterChange('minAmount', e.target.value)
                 }
               />
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Max Amount (MT)</label>
+            <div className='space-y-2'>
+              <label className='text-sm font-medium'>Max Amount (MT)</label>
               <Input
-                type="number"
-                placeholder="∞"
-                value={filters.maxAmount || ""}
+                type='number'
+                placeholder='∞'
+                value={filters.maxAmount || ''}
                 onChange={(e) =>
-                  handleFilterChange("maxAmount", e.target.value)
+                  handleFilterChange('maxAmount', e.target.value)
                 }
               />
             </div>
           </div>
 
-          <div className="flex justify-end">
-            <Button variant="outline" onClick={clearFilters}>
+          <div className='flex justify-end'>
+            <Button variant='outline' onClick={clearFilters}>
               Clear Filters
             </Button>
           </div>
@@ -271,38 +271,38 @@ export function TransactionList() {
       )}
 
       {/* Transaction List */}
-      <div className="space-y-4">
+      <div className='space-y-4'>
         {filteredTransactions?.map((transaction: Transaction) => (
-          <div key={transaction.id} className="border rounded-lg p-6">
-            <div className="flex items-start justify-between">
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <span className="font-medium">#{transaction.id}</span>
+          <div key={transaction.id} className='border rounded-lg p-6'>
+            <div className='flex items-start justify-between'>
+              <div className='space-y-2'>
+                <div className='flex items-center space-x-2'>
+                  <span className='font-medium'>#{transaction.id}</span>
                   <span
                     className={`px-2 py-1 rounded text-xs ${
                       transaction.status === TransactionStatus.Pending
-                        ? "bg-yellow-100 text-yellow-800"
+                        ? 'bg-yellow-100 text-yellow-800'
                         : transaction.status === TransactionStatus.Active
-                          ? "bg-blue-100 text-blue-800"
+                          ? 'bg-blue-100 text-blue-800'
                           : transaction.status === TransactionStatus.Completed
-                            ? "bg-green-100 text-green-800"
-                            : "bg-red-100 text-red-800"
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-red-100 text-red-800'
                     }`}
                   >
                     {getStatusText(transaction.status)}
                   </span>
                 </div>
-                <p className="text-gray-600">{transaction.description}</p>
-                <div className="flex space-x-4 text-sm text-gray-500 flex-col">
+                <p className='text-gray-600'>{transaction.description}</p>
+                <div className='flex space-x-4 text-sm text-gray-500 flex-col'>
                   <span>From: {transaction.from}</span>
                   <span>To: {transaction.to}</span>
                 </div>
               </div>
-              <div className="text-right">
-                <div className="text-2xl font-bold text-green-600">
+              <div className='text-right'>
+                <div className='text-2xl font-bold text-green-600'>
                   {formatAmount(transaction.amount)}
                 </div>
-                <div className="flex space-x-4 text-sm text-gray-500 flex-col">
+                <div className='flex space-x-4 text-sm text-gray-500 flex-col'>
                   <span>{formatDate(transaction.timestamp)}</span>
                 </div>
               </div>
@@ -311,8 +311,8 @@ export function TransactionList() {
         ))}
 
         {filteredTransactions?.length === 0 && (
-          <div className="text-center py-8">
-            <p className="text-gray-500">No transactions found</p>
+          <div className='text-center py-8'>
+            <p className='text-gray-500'>No transactions found</p>
           </div>
         )}
       </div>

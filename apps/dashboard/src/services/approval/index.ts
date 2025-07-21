@@ -1,11 +1,11 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { approvalAPI } from "@/api/approval";
-import type { Approval } from "@/types/approval";
-import { ApprovalStatus } from "@/types/approval";
-import { approvalQueryKeys } from "@/services/approval/request";
+import { approvalAPI } from '@/api/approval';
+import type { Approval } from '@/types/approval';
+import { ApprovalStatus } from '@/types/approval';
+import { approvalQueryKeys } from '@/services/approval/request';
 
-import { transactionQueryKeys } from "@/services/transaction/request";
+import { transactionQueryKeys } from '@/services/transaction/request';
 
 export function useProcessApproval() {
   const queryClient = useQueryClient();

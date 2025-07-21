@@ -1,17 +1,17 @@
-import { screen, waitFor } from "@testing-library/react";
-import { render } from "@/test-utils";
-import ApprovalsPage from "../approvals/page";
-import { ApprovalType, ApprovalStatus } from "@/types/approval";
+import { screen, waitFor } from '@testing-library/react';
+import { render } from '@/test-utils';
+import ApprovalsPage from '../approvals/page';
+import { ApprovalType, ApprovalStatus } from '@/types/approval';
 
 // Mock the contract manager
-jest.mock("@/api/contract-manager", () => ({
+jest.mock('@/api/contract-manager', () => ({
   contractManager: {
     isInitialized: () => true,
   },
 }));
 
 // Mock the approval API
-jest.mock("@/api/approval", () => ({
+jest.mock('@/api/approval', () => ({
   approvalAPI: {
     getAllApprovals: jest.fn(),
     getPendingApprovals: jest.fn(),
@@ -19,7 +19,7 @@ jest.mock("@/api/approval", () => ({
 }));
 
 // Import the mocked functions
-import { approvalAPI } from "@/api/approval";
+import { approvalAPI } from '@/api/approval';
 
 const mockGetAllApprovals = approvalAPI.getAllApprovals as jest.MockedFunction<
   typeof approvalAPI.getAllApprovals
@@ -29,7 +29,7 @@ const mockGetPendingApprovals =
     typeof approvalAPI.getPendingApprovals
   >;
 
-describe("ApprovalsPage", () => {
+describe('ApprovalsPage', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
@@ -38,40 +38,40 @@ describe("ApprovalsPage", () => {
       {
         id: 1,
         transactionId: 1,
-        requester: "0x1234567890123456789012345678901234567890",
-        approver: "",
+        requester: '0x1234567890123456789012345678901234567890',
+        approver: '',
         approvalType: ApprovalType.Transaction,
         status: ApprovalStatus.Pending,
-        reason: "Pending approval",
+        reason: 'Pending approval',
         timestamp: Date.now(),
       },
       {
         id: 2,
         transactionId: 2,
-        requester: "0x1234567890123456789012345678901234567890",
-        approver: "0x0987654321098765432109876543210987654321",
+        requester: '0x1234567890123456789012345678901234567890',
+        approver: '0x0987654321098765432109876543210987654321',
         approvalType: ApprovalType.Transaction,
         status: ApprovalStatus.Approved,
-        reason: "Approved",
+        reason: 'Approved',
         timestamp: Date.now(),
       },
     ]);
     mockGetPendingApprovals.mockResolvedValue([1, 2]); // Array of approval IDs
   });
 
-  it("renders approvals page with correct structure", () => {
+  it('renders approvals page with correct structure', () => {
     render(<ApprovalsPage />);
 
     // Check main heading and description
     expect(
-      screen.getByRole("heading", { name: "Approvals" })
+      screen.getByRole('heading', { name: 'Approvals' })
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Manage your token approvals and permissions")
+      screen.getByText('Manage your token approvals and permissions')
     ).toBeInTheDocument();
   });
 
-  it("displays approval data when API calls succeed", async () => {
+  it('displays approval data when API calls succeed', async () => {
     render(<ApprovalsPage />);
 
     // Wait for the data to load and check that approval components are rendered
@@ -80,18 +80,18 @@ describe("ApprovalsPage", () => {
     });
   });
 
-  it("handles loading state", () => {
+  it('handles loading state', () => {
     mockGetAllApprovals.mockImplementation(() => new Promise(() => {})); // Never resolves
 
     render(<ApprovalsPage />);
 
     // Should show loading skeleton
     expect(
-      screen.getByText("Manage your token approvals and permissions")
+      screen.getByText('Manage your token approvals and permissions')
     ).toBeInTheDocument();
   });
 
-  it("handles empty approval list", async () => {
+  it('handles empty approval list', async () => {
     mockGetAllApprovals.mockResolvedValue([]);
     mockGetPendingApprovals.mockResolvedValue([]);
 
@@ -102,7 +102,7 @@ describe("ApprovalsPage", () => {
     });
   });
 
-  it("calls the APIs with correct parameters", async () => {
+  it('calls the APIs with correct parameters', async () => {
     render(<ApprovalsPage />);
 
     await waitFor(() => {
@@ -111,7 +111,7 @@ describe("ApprovalsPage", () => {
     });
   });
 
-  it("has correct page layout and styling", () => {
+  it('has correct page layout and styling', () => {
     mockGetAllApprovals.mockResolvedValue([]);
     mockGetPendingApprovals.mockResolvedValue([]);
 
@@ -119,10 +119,10 @@ describe("ApprovalsPage", () => {
 
     // Check that the page has the correct container structure
     const container = screen
-      .getByText("Manage your token approvals and permissions")
-      .closest("div")?.parentElement;
-    expect(container).toHaveClass("container");
-    expect(container).toHaveClass("mx-auto");
-    expect(container).toHaveClass("p-6");
+      .getByText('Manage your token approvals and permissions')
+      .closest('div')?.parentElement;
+    expect(container).toHaveClass('container');
+    expect(container).toHaveClass('mx-auto');
+    expect(container).toHaveClass('p-6');
   });
 });

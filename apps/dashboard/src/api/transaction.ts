@@ -1,12 +1,12 @@
-import { ethers } from "ethers";
-import { contractManager } from "./contract-manager";
-import { Transaction, TransactionStatus } from "@/types/transaction";
+import { ethers } from 'ethers';
+import { contractManager } from './contract-manager';
+import { Transaction, TransactionStatus } from '@/types/transaction';
 
 export class TransactionAPI {
   public async getTransaction(transactionId: number): Promise<Transaction> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     const result = await financialPlatform.getTransaction?.(transactionId);
 
@@ -26,7 +26,7 @@ export class TransactionAPI {
   public async getAllTransactions(): Promise<Transaction[]> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
 
     const transactionCount = await this.getTransactionCount();
@@ -49,7 +49,7 @@ export class TransactionAPI {
   public async getUserTransactions(userAddress: string): Promise<number[]> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     return await financialPlatform.getUserTransactions?.(userAddress);
   }
@@ -74,7 +74,7 @@ export class TransactionAPI {
   public async getTransactionCount(): Promise<number> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     return await financialPlatform.getTransactionCount?.();
   }
@@ -86,7 +86,7 @@ export class TransactionAPI {
   ): Promise<ethers.ContractTransactionResponse> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     const value = ethers.parseEther(amount);
     return await financialPlatform.createTransaction?.(to, value, description);
@@ -97,7 +97,7 @@ export class TransactionAPI {
   ): Promise<ethers.ContractTransactionResponse> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     return await financialPlatform.completeTransaction?.(transactionId);
   }

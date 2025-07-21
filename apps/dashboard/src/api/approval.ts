@@ -1,12 +1,12 @@
-import { ethers } from "ethers";
-import { contractManager } from "./contract-manager";
-import { Approval, ApprovalStatus, ApprovalType } from "@/types/approval";
+import { ethers } from 'ethers';
+import { contractManager } from './contract-manager';
+import { Approval, ApprovalStatus, ApprovalType } from '@/types/approval';
 
 export class ApprovalAPI {
   public async getApproval(approvalId: number): Promise<Approval> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     const result = await financialPlatform.getApproval?.(approvalId);
 
@@ -26,7 +26,7 @@ export class ApprovalAPI {
   public async getPendingApprovals(): Promise<number[]> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     return financialPlatform.getPendingApprovals?.();
   }
@@ -34,7 +34,7 @@ export class ApprovalAPI {
   public async getApprovalCount(): Promise<number> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     return financialPlatform.getApprovalCount?.();
   }
@@ -42,7 +42,7 @@ export class ApprovalAPI {
   public async getAllApprovals(): Promise<Approval[]> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
 
     const approvalCount = await this.getApprovalCount();
@@ -68,7 +68,7 @@ export class ApprovalAPI {
   ): Promise<ethers.ContractTransactionResponse> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     return financialPlatform.requestApproval?.(transactionId, reason);
   }
@@ -80,7 +80,7 @@ export class ApprovalAPI {
   ): Promise<ethers.ContractTransactionResponse> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     return financialPlatform.processApproval?.(approvalId, approved, reason);
   }

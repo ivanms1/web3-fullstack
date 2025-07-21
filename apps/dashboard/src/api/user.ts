@@ -1,12 +1,12 @@
-import { ethers } from "ethers";
-import { contractManager } from "./contract-manager";
-import { User, UserRole } from "@/types/user";
+import { ethers } from 'ethers';
+import { contractManager } from './contract-manager';
+import { User, UserRole } from '@/types/user';
 
 export class UserAPI {
   public async getUser(userAddress: string): Promise<User> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
 
     const result = await financialPlatform.getUser?.(userAddress);
@@ -26,7 +26,7 @@ export class UserAPI {
   public async getCurrentUser(): Promise<User> {
     const currentAccount = await contractManager.getCurrentAccount();
     if (!currentAccount) {
-      throw new Error("No wallet connected");
+      throw new Error('No wallet connected');
     }
 
     return this.getUser(currentAccount);
@@ -35,7 +35,7 @@ export class UserAPI {
   public async isUserRegistered(userAddress: string): Promise<boolean> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
 
     try {
@@ -49,7 +49,7 @@ export class UserAPI {
   public async getUserCount(): Promise<number> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     return financialPlatform.getUserCount?.();
   }
@@ -62,7 +62,7 @@ export class UserAPI {
   ): Promise<ethers.ContractTransactionResponse> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     return financialPlatform.registerUser?.(walletAddress, name, email, role);
   }
@@ -73,7 +73,7 @@ export class UserAPI {
   ): Promise<ethers.ContractTransactionResponse> {
     const financialPlatform = contractManager.getFinancialPlatform();
     if (!financialPlatform) {
-      throw new Error("Financial Platform contract not initialized");
+      throw new Error('Financial Platform contract not initialized');
     }
     return financialPlatform.updateUserRole?.(userAddress, newRole);
   }

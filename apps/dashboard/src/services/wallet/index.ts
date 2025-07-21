@@ -1,6 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from '@tanstack/react-query';
 
-import { contractManager } from "@/api/contract-manager";
+import { contractManager } from '@/api/contract-manager';
 
 export const useConnectWallet = () => {
   return useMutation({

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useEffect } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
-import { walletQueryKeys } from "@/services/wallet/request";
-import { useConnectWallet } from "@/services/wallet";
-import { userQueryKeys } from "@/services/user/request";
+import { walletQueryKeys } from '@/services/wallet/request';
+import { useConnectWallet } from '@/services/wallet';
+import { userQueryKeys } from '@/services/user/request';
 
 export function useWalletSession() {
   const queryClient = useQueryClient();
@@ -37,11 +37,11 @@ export function useWalletSession() {
     }
 
     if (!userIsRegistered) {
-      router.push("/login");
+      router.push('/login');
     }
 
     if (!currentAccount) {
-      router.push("/login");
+      router.push('/login');
     }
   }, [
     isLoadingCurrentAccount,
@@ -56,21 +56,21 @@ export function useWalletSession() {
     const handleAccountsChanged = () => {
       // Invalidate and refetch current user data when account changes
       queryClient.invalidateQueries();
-      toast.info("Wallet account changed", {
-        id: "wallet-account-changed",
+      toast.info('Wallet account changed', {
+        id: 'wallet-account-changed',
       });
     };
 
     // Check if MetaMask is available
-    if (typeof window !== "undefined" && window.ethereum) {
+    if (typeof window !== 'undefined' && window.ethereum) {
       // Listen for account changes
-      window.ethereum.on("accountsChanged", handleAccountsChanged);
+      window.ethereum.on('accountsChanged', handleAccountsChanged);
 
       // Cleanup listener on unmount
       return () => {
         if (window.ethereum) {
           window.ethereum.removeListener(
-            "accountsChanged",
+            'accountsChanged',
             handleAccountsChanged
           );
         }

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { dayjs } from "@/lib/dayjs";
+import { dayjs } from '@/lib/dayjs';
 import {
   Drawer,
   DrawerContent,
@@ -9,16 +9,16 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerClose,
-} from "@repo/ui/components/drawer";
-import { Badge } from "@repo/ui/components/badge";
-import { Button } from "@repo/ui/components/button";
-import { Separator } from "@repo/ui/components/separator";
+} from '@repo/ui/components/drawer';
+import { Badge } from '@repo/ui/components/badge';
+import { Button } from '@repo/ui/components/button';
+import { Separator } from '@repo/ui/components/separator';
 
-import { Transaction, TransactionStatus } from "@/types/transaction";
-import { truncateWalletAddress } from "@/utils/truncateWalletAddress";
-import { RequestApprovalForm } from "./request-approval-form";
+import { Transaction, TransactionStatus } from '@/types/transaction';
+import { truncateWalletAddress } from '@/utils/truncateWalletAddress';
+import { RequestApprovalForm } from './request-approval-form';
 
-import { TRANSACTION_STATUS_CONFIG } from "@/const";
+import { TRANSACTION_STATUS_CONFIG } from '@/const';
 
 interface TransactionDetailsDrawerProps {
   transaction: Transaction | null;
@@ -36,8 +36,8 @@ export function TransactionDetailsDrawer({
   }
 
   const config = TRANSACTION_STATUS_CONFIG[transaction.status] || {
-    label: "Unknown",
-    variant: "secondary" as const,
+    label: 'Unknown',
+    variant: 'secondary' as const,
   };
 
   const date = dayjs(transaction.timestamp * 1000);
@@ -52,29 +52,29 @@ export function TransactionDetailsDrawer({
   };
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange} direction="right">
-      <DrawerContent className="sm:min-w-[500px] min-w-full">
+    <Drawer open={open} onOpenChange={onOpenChange} direction='right'>
+      <DrawerContent className='sm:min-w-[500px] min-w-full'>
         <DrawerHeader>
           <DrawerTitle>Transaction Details</DrawerTitle>
           <DrawerDescription>Transaction #{transaction.id}</DrawerDescription>
         </DrawerHeader>
 
-        <div className="px-4 space-y-6">
+        <div className='px-4 space-y-6'>
           {/* Status and Amount */}
-          <div className="flex items-center gap-4">
+          <div className='flex items-center gap-4'>
             <div>
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className='text-sm font-medium text-muted-foreground'>
                 Status
               </p>
-              <Badge variant={config.variant} className="mt-1">
+              <Badge variant={config.variant} className='mt-1'>
                 {config.label}
               </Badge>
             </div>
             <div>
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className='text-sm font-medium text-muted-foreground'>
                 Amount
               </p>
-              <p className="text-lg font-bold text-green-600 mt-1">
+              <p className='text-lg font-bold text-green-600 mt-1'>
                 {formattedAmount}
               </p>
             </div>
@@ -83,22 +83,22 @@ export function TransactionDetailsDrawer({
           <Separator />
 
           {/* From and To Addresses */}
-          <div className="space-y-4">
+          <div className='space-y-4'>
             <div>
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className='text-sm font-medium text-muted-foreground'>
                 From Address
               </p>
-              <p className="font-mono text-sm mt-1">{transaction.from}</p>
-              <p className="text-xs text-muted-foreground mt-1">
+              <p className='font-mono text-sm mt-1'>{transaction.from}</p>
+              <p className='text-xs text-muted-foreground mt-1'>
                 {truncateWalletAddress(transaction.from)}
               </p>
             </div>
             <div>
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className='text-sm font-medium text-muted-foreground'>
                 To Address
               </p>
-              <p className="font-mono text-sm mt-1">{transaction.to}</p>
-              <p className="text-xs text-muted-foreground mt-1">
+              <p className='font-mono text-sm mt-1'>{transaction.to}</p>
+              <p className='text-xs text-muted-foreground mt-1'>
                 {truncateWalletAddress(transaction.to)}
               </p>
             </div>
@@ -108,10 +108,10 @@ export function TransactionDetailsDrawer({
 
           {/* Description */}
           <div>
-            <p className="text-sm font-medium text-muted-foreground">
+            <p className='text-sm font-medium text-muted-foreground'>
               Description
             </p>
-            <p className="text-sm mt-1 whitespace-pre-wrap">
+            <p className='text-sm mt-1 whitespace-pre-wrap'>
               {transaction.description}
             </p>
           </div>
@@ -120,11 +120,11 @@ export function TransactionDetailsDrawer({
 
           {/* Timestamp */}
           <div>
-            <p className="text-sm font-medium text-muted-foreground">Created</p>
-            <p className="text-sm mt-1">
-              {date.format("MMMM D, YYYY [at] h:mm A")}
+            <p className='text-sm font-medium text-muted-foreground'>Created</p>
+            <p className='text-sm mt-1'>
+              {date.format('MMMM D, YYYY [at] h:mm A')}
             </p>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className='text-xs text-muted-foreground mt-1'>
               {date.fromNow()}
             </p>
           </div>
@@ -134,10 +134,10 @@ export function TransactionDetailsDrawer({
             <>
               <Separator />
               <div>
-                <p className="text-sm font-medium text-muted-foreground">
+                <p className='text-sm font-medium text-muted-foreground'>
                   Approval ID
                 </p>
-                <p className="font-mono text-sm mt-1">
+                <p className='font-mono text-sm mt-1'>
                   #{transaction.approvalId}
                 </p>
               </div>
@@ -155,7 +155,7 @@ export function TransactionDetailsDrawer({
             />
           ) : (
             <DrawerClose asChild>
-              <Button variant="outline" className="w-full">
+              <Button variant='outline' className='w-full'>
                 Close
               </Button>
             </DrawerClose>

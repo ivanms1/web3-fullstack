@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Button } from "@repo/ui/components/button";
-import { Label } from "@repo/ui/components/label";
-import { Textarea } from "@repo/ui/components/textarea";
-import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Button } from '@repo/ui/components/button';
+import { Label } from '@repo/ui/components/label';
+import { Textarea } from '@repo/ui/components/textarea';
+import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 
-import { Approval, ApprovalStatus } from "@/types/approval";
-import { useProcessApproval } from "@/services/approval";
+import { Approval, ApprovalStatus } from '@/types/approval';
+import { useProcessApproval } from '@/services/approval';
 
 const processApprovalSchema = z.object({
   reason: z
     .string()
-    .min(1, "Reason is required")
-    .max(500, "Reason must be less than 500 characters"),
+    .min(1, 'Reason is required')
+    .max(500, 'Reason must be less than 500 characters'),
 });
 
 type ProcessApprovalFormData = z.infer<typeof processApprovalSchema>;
@@ -46,7 +46,7 @@ export function ProcessApprovalForm({
   } = useForm<ProcessApprovalFormData>({
     resolver: zodResolver(processApprovalSchema),
     defaultValues: {
-      reason: "",
+      reason: '',
     },
   });
 
@@ -59,12 +59,12 @@ export function ProcessApprovalForm({
       },
       {
         onSuccess: () => {
-          toast.success("Approval process started");
+          toast.success('Approval process started');
           reset();
           onSuccess();
         },
         onError: () => {
-          toast.error("Failed to process approval");
+          toast.error('Failed to process approval');
         },
       }
     );
@@ -79,71 +79,71 @@ export function ProcessApprovalForm({
       },
       {
         onSuccess: () => {
-          toast.success("Approval rejected successfully");
+          toast.success('Approval rejected successfully');
           reset();
           onSuccess();
         },
         onError: () => {
-          toast.error("Failed to reject approval");
+          toast.error('Failed to reject approval');
         },
       }
     );
   };
 
   return (
-    <form className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="reason">Reason for decision</Label>
+    <form className='space-y-4'>
+      <div className='space-y-2'>
+        <Label htmlFor='reason'>Reason for decision</Label>
         <Textarea
-          id="reason"
-          placeholder="Enter your reason for approving or rejecting this request..."
-          {...register("reason")}
-          className="min-h-[100px] resize-none"
+          id='reason'
+          placeholder='Enter your reason for approving or rejecting this request...'
+          {...register('reason')}
+          className='min-h-[100px] resize-none'
         />
         {errors.reason && (
-          <p className="text-sm text-destructive">{errors.reason.message}</p>
+          <p className='text-sm text-destructive'>{errors.reason.message}</p>
         )}
       </div>
 
-      <div className="flex gap-2 pt-4">
+      <div className='flex gap-2 pt-4'>
         <Button
-          type="button"
-          variant="outline"
+          type='button'
+          variant='outline'
           onClick={onCancel}
           disabled={isPending}
-          className="flex-1"
+          className='flex-1'
         >
           Cancel
         </Button>
         <Button
-          type="button"
-          variant="destructive"
+          type='button'
+          variant='destructive'
           onClick={handleSubmit(onReject)}
           disabled={isPending || isSuccess}
-          className="flex-1"
+          className='flex-1'
         >
           {isPending ? (
             <>
-              <Loader2 className="w-4 h-4 mr-2" />
+              <Loader2 className='w-4 h-4 mr-2' />
               Processing...
             </>
           ) : (
-            "Reject"
+            'Reject'
           )}
         </Button>
         <Button
-          type="submit"
+          type='submit'
           onClick={handleSubmit(onSubmit)}
           disabled={isPending || isSuccess}
-          className="flex-1"
+          className='flex-1'
         >
           {isPending ? (
             <>
-              <Loader2 className="w-4 h-4 mr-2" />
+              <Loader2 className='w-4 h-4 mr-2' />
               Processing...
             </>
           ) : (
-            "Approve"
+            'Approve'
           )}
         </Button>
       </div>

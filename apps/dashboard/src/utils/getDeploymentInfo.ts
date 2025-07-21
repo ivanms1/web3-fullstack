@@ -45,7 +45,7 @@ export const getDeploymentInfo = () => {
 
   if (!deploymentInfoString) {
     throw new Error(
-      "NEXT_PUBLIC_DEPLOYMENT_INFO environment variable is required"
+      'NEXT_PUBLIC_DEPLOYMENT_INFO environment variable is required'
     );
   }
 
@@ -53,7 +53,7 @@ export const getDeploymentInfo = () => {
     return JSON.parse(deploymentInfoString);
   } catch {
     throw new Error(
-      "Invalid JSON in NEXT_PUBLIC_DEPLOYMENT_INFO environment variable"
+      'Invalid JSON in NEXT_PUBLIC_DEPLOYMENT_INFO environment variable'
     );
   }
 };

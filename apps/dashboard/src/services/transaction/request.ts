@@ -1,7 +1,7 @@
-import { createQueryKeys } from "@lukemorales/query-key-factory";
+import { createQueryKeys } from '@lukemorales/query-key-factory';
 
-import { QUERY_KEYS } from "@/services/queryKeys";
-import { transactionAPI } from "@/api/transaction";
+import { QUERY_KEYS } from '@/services/queryKeys';
+import { transactionAPI } from '@/api/transaction';
 
 export const transactionQueryKeys = createQueryKeys(QUERY_KEYS.TRANSACTION, {
   getTransaction: (transactionId: number) => ({
@@ -17,12 +17,12 @@ export const transactionQueryKeys = createQueryKeys(QUERY_KEYS.TRANSACTION, {
     queryFn: () => transactionAPI.getTransactionsByIds(transactionIds),
   }),
   getAllTransactions: () => ({
-    queryKey: ["all-transactions"],
+    queryKey: ['all-transactions'],
     queryFn: () => transactionAPI.getAllTransactions(),
   }),
 
   getTransactionCount: () => ({
-    queryKey: ["transaction-count"],
+    queryKey: ['transaction-count'],
     queryFn: () => transactionAPI.getTransactionCount(),
   }),
 });

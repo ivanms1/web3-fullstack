@@ -27,8 +27,6 @@ export function LayoutWrapper({ children, defaultOpen }: LayoutWrapperProps) {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login';
 
-  console.log('isInitializing', isInitializing);
-
   if (isLoginPage) {
     return <>{children}</>;
   }

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
-import { Button } from "@repo/ui/components/button";
-import { Input } from "@repo/ui/components/input";
-import { Label } from "@repo/ui/components/label";
+import { Button } from '@repo/ui/components/button';
+import { Input } from '@repo/ui/components/input';
+import { Label } from '@repo/ui/components/label';
 import {
   Dialog,
   DialogContent,
@@ -15,29 +15,29 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@repo/ui/components/dialog";
+} from '@repo/ui/components/dialog';
 
-import { useCreateTransaction } from "@/services/transaction";
-import { Loader2, SendHorizontalIcon } from "lucide-react";
-import { toast } from "sonner";
+import { useCreateTransaction } from '@/services/transaction';
+import { Loader2, SendHorizontalIcon } from 'lucide-react';
+import { toast } from 'sonner';
 
 const transactionSchema = z.object({
   to: z
     .string()
-    .min(1, "Recipient address is required")
-    .regex(/^0x[a-fA-F0-9]{40}$/, "Invalid Ethereum address format"),
+    .min(1, 'Recipient address is required')
+    .regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid Ethereum address format'),
   amount: z
     .string()
-    .min(1, "Amount is required")
+    .min(1, 'Amount is required')
     .refine((val) => {
       const num = parseFloat(val);
       return !isNaN(num) && num > 0;
-    }, "Amount must be a positive number"),
+    }, 'Amount must be a positive number'),
   description: z
     .string()
-    .min(1, "Description is required")
-    .min(3, "Description must be at least 3 characters")
-    .max(200, "Description must be less than 200 characters"),
+    .min(1, 'Description is required')
+    .min(3, 'Description must be at least 3 characters')
+    .max(200, 'Description must be less than 200 characters'),
 });
 
 type TransactionFormData = z.infer<typeof transactionSchema>;
@@ -63,7 +63,7 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
     watch,
   } = useForm<TransactionFormData>({
     resolver: zodResolver(transactionSchema),
-    mode: "onChange",
+    mode: 'onChange',
   });
 
   const watchedValues = watch();
@@ -77,12 +77,12 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
       },
       {
         onSuccess: () => {
-          toast.success("Transaction has started processing");
+          toast.success('Transaction has started processing');
           reset();
           setOpen(false);
         },
         onError: () => {
-          toast.error("Failed to create transaction");
+          toast.error('Failed to create transaction');
         },
       }
     );
@@ -104,12 +104,12 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button className="w-full sm:w-auto">
+        <Button className='w-full sm:w-auto'>
           <SendHorizontalIcon />
           Send Transaction
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className='sm:max-w-md'>
         <DialogHeader>
           <DialogTitle>Send Transaction</DialogTitle>
           <DialogDescription>
@@ -117,48 +117,48 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
           {/* Recipient Address */}
-          <div className="space-y-2">
-            <Label htmlFor="to">Recipient Address</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='to'>Recipient Address</Label>
             <Input
-              id="to"
-              placeholder="0x..."
-              {...register("to")}
-              className={errors.to ? "border-red-500" : ""}
+              id='to'
+              placeholder='0x...'
+              {...register('to')}
+              className={errors.to ? 'border-red-500' : ''}
             />
             {errors.to && (
-              <p className="text-sm text-red-500">{errors.to.message}</p>
+              <p className='text-sm text-red-500'>{errors.to.message}</p>
             )}
           </div>
 
           {/* Amount */}
-          <div className="space-y-2">
-            <Label htmlFor="amount">Amount (MT)</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='amount'>Amount (MT)</Label>
             <Input
-              id="amount"
-              type="number"
-              step="0.001"
-              placeholder="0.0"
-              {...register("amount")}
-              className={errors.amount ? "border-red-500" : ""}
+              id='amount'
+              type='number'
+              step='0.001'
+              placeholder='0.0'
+              {...register('amount')}
+              className={errors.amount ? 'border-red-500' : ''}
             />
             {errors.amount && (
-              <p className="text-sm text-red-500">{errors.amount.message}</p>
+              <p className='text-sm text-red-500'>{errors.amount.message}</p>
             )}
           </div>
 
           {/* Description */}
-          <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='description'>Description</Label>
             <Input
-              id="description"
-              placeholder="What is this transaction for?"
-              {...register("description")}
-              className={errors.description ? "border-red-500" : ""}
+              id='description'
+              placeholder='What is this transaction for?'
+              {...register('description')}
+              className={errors.description ? 'border-red-500' : ''}
             />
             {errors.description && (
-              <p className="text-sm text-red-500">
+              <p className='text-sm text-red-500'>
                 {errors.description.message}
               </p>
             )}
@@ -168,18 +168,18 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
           {watchedValues.to &&
             watchedValues.amount &&
             watchedValues.description && (
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg space-y-2">
-                <h4 className="font-medium text-sm">Transaction Preview</h4>
-                <div className="text-sm space-y-1">
+              <div className='p-4 bg-gray-50 dark:bg-gray-800 rounded-lg space-y-2'>
+                <h4 className='font-medium text-sm'>Transaction Preview</h4>
+                <div className='text-sm space-y-1'>
                   <p>
-                    <span className="font-medium">To:</span> {watchedValues.to}
+                    <span className='font-medium'>To:</span> {watchedValues.to}
                   </p>
                   <p>
-                    <span className="font-medium">Amount:</span>{" "}
+                    <span className='font-medium'>Amount:</span>{' '}
                     {watchedValues.amount} ETH
                   </p>
                   <p>
-                    <span className="font-medium">Description:</span>{" "}
+                    <span className='font-medium'>Description:</span>{' '}
                     {watchedValues.description}
                   </p>
                 </div>
@@ -188,21 +188,21 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
 
           <DialogFooter>
             <Button
-              type="button"
-              variant="outline"
+              type='button'
+              variant='outline'
               onClick={handleCancel}
               disabled={isPending}
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isPending || !isValid}>
+            <Button type='submit' disabled={isPending || !isValid}>
               {isPending ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className='w-4 h-4 animate-spin' />
                   Creating Transaction...
                 </>
               ) : (
-                "Send Transaction"
+                'Send Transaction'
               )}
             </Button>
           </DialogFooter>
@@ -210,8 +210,8 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
 
         {/* Error Display */}
         {error && (
-          <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg max-w-sm">
-            <p className="text-sm text-red-600 dark:text-red-400 break-words">
+          <div className='mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg max-w-sm'>
+            <p className='text-sm text-red-600 dark:text-red-400 break-words'>
               Error: {error.message}
             </p>
           </div>

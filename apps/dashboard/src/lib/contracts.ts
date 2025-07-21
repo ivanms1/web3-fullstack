@@ -1,4 +1,4 @@
-import { getDeploymentInfo } from "@/utils/getDeploymentInfo";
+import { getDeploymentInfo } from '@/utils/getDeploymentInfo';
 
 const deploymentInfo = getDeploymentInfo();
 

@@ -1,15 +1,15 @@
-import { cookies } from "next/headers";
-import { Toaster } from "@repo/ui/components/sonner";
-import type { Metadata } from "next";
+import { cookies } from 'next/headers';
+import { Toaster } from '@repo/ui/components/sonner';
+import type { Metadata } from 'next';
 
-import { LayoutWrapper } from "@/components/layout/layout-wrapper";
-import { Providers } from "@/components/providers/providers";
+import { LayoutWrapper } from '@/components/layout/layout-wrapper';
+import { Providers } from '@/components/providers/providers';
 
-import "@repo/ui/globals.css";
+import '@repo/ui/globals.css';
 
 export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Dashboard",
+  title: 'Dashboard',
+  description: 'Dashboard',
 };
 
 export default async function RootLayout({
@@ -18,11 +18,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
+  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
 
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
+      <html lang='en' suppressHydrationWarning>
         <head />
         <body>
           <Providers>

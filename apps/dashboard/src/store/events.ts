@@ -1,6 +1,6 @@
-import { EVENT_TYPES } from "@/types/event";
-import { atom } from "jotai";
-import { atomWithReset } from "jotai/utils";
+import { EVENT_TYPES } from '@/types/event';
+import { atom } from 'jotai';
+import { atomWithReset } from 'jotai/utils';
 
 export interface BlockchainEvent {
   id: string;
@@ -8,7 +8,7 @@ export interface BlockchainEvent {
   title: string;
   description: string;
   timestamp: Date;
-  status: "success" | "error" | "info";
+  status: 'success' | 'error' | 'info';
   data?: Record<string, any>;
 }
 
@@ -21,7 +21,7 @@ export const unreadNotificationsAtom = atomWithReset<number>(0);
 // Helper functions to add events
 export const addEventAtom = atom(
   null,
-  (get, set, event: Omit<BlockchainEvent, "id" | "timestamp">) => {
+  (get, set, event: Omit<BlockchainEvent, 'id' | 'timestamp'>) => {
     const events = get(eventsAtom);
 
     // Create a unique identifier based on event type and relevant data

@@ -1,6 +1,6 @@
-import { createQueryKeys } from "@lukemorales/query-key-factory";
-import { QUERY_KEYS } from "@/services/queryKeys";
-import { approvalAPI } from "@/api/approval";
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { QUERY_KEYS } from '@/services/queryKeys';
+import { approvalAPI } from '@/api/approval';
 
 export const approvalQueryKeys = createQueryKeys(QUERY_KEYS.APPROVAL, {
   getApproval: (approvalId: number) => ({
@@ -8,15 +8,15 @@ export const approvalQueryKeys = createQueryKeys(QUERY_KEYS.APPROVAL, {
     queryFn: () => approvalAPI.getApproval(approvalId),
   }),
   getPendingApprovals: () => ({
-    queryKey: ["pending"],
+    queryKey: ['pending'],
     queryFn: () => approvalAPI.getPendingApprovals(),
   }),
   getApprovalCount: () => ({
-    queryKey: ["approval-count"],
+    queryKey: ['approval-count'],
     queryFn: () => approvalAPI.getApprovalCount(),
   }),
   getAllApprovals: () => ({
-    queryKey: ["all"],
+    queryKey: ['all'],
     queryFn: () => approvalAPI.getAllApprovals(),
   }),
 });

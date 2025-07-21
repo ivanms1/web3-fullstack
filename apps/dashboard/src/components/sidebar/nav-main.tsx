@@ -1,8 +1,8 @@
-"use client";
-import { useState } from "react";
+'use client';
+import { useState } from 'react';
 
-import Link from "next/link";
-import { type LucideIcon } from "lucide-react";
+import Link from 'next/link';
+import { type LucideIcon } from 'lucide-react';
 
 import {
   SidebarGroup,
@@ -10,8 +10,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@repo/ui/components/sidebar";
-import { TransactionDialog } from "@/components/transaction-dialog/transaction-dialog";
+} from '@repo/ui/components/sidebar';
+import { TransactionDialog } from '@/components/transaction-dialog/transaction-dialog';
 
 export function NavMain({
   items,
@@ -25,9 +25,9 @@ export function NavMain({
   const [isTransactionDialogOpen, setIsTransactionDialogOpen] = useState(false);
   return (
     <SidebarGroup>
-      <SidebarGroupContent className="flex flex-col gap-2">
+      <SidebarGroupContent className='flex flex-col gap-2'>
         <SidebarMenu>
-          <SidebarMenuItem className="flex items-center gap-2">
+          <SidebarMenuItem className='flex items-center gap-2'>
             <TransactionDialog
               open={isTransactionDialogOpen}
               setOpen={setIsTransactionDialogOpen}

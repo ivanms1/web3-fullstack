@@ -1,6 +1,6 @@
-import { render, RenderOptions } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactElement } from "react";
+import { render, RenderOptions } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactElement } from 'react';
 
 // Create a custom render function that includes providers
 const createTestQueryClient = () =>
@@ -16,7 +16,7 @@ const createTestQueryClient = () =>
 
 const customRender = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
+  options?: Omit<RenderOptions, 'wrapper'>
 ): ReturnType<typeof render> & { queryClient: QueryClient } => {
   const queryClient = createTestQueryClient();
 

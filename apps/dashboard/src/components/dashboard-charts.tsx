@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useMemo } from "react";
+import { useMemo } from 'react';
 import {
   PieChart,
   Pie,
@@ -14,17 +14,17 @@ import {
   Bar,
   AreaChart,
   Area,
-} from "recharts";
+} from 'recharts';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@repo/ui/components/card";
+} from '@repo/ui/components/card';
 
-import { Transaction, TransactionStatus } from "@/types/transaction";
-import { Approval, ApprovalStatus } from "@/types/approval";
-import { dayjs } from "@/lib/dayjs";
+import { Transaction, TransactionStatus } from '@/types/transaction';
+import { Approval, ApprovalStatus } from '@/types/approval';
+import { dayjs } from '@/lib/dayjs';
 
 interface DashboardChartsProps {
   allTransactions?: Transaction[];
@@ -41,32 +41,32 @@ export function DashboardCharts({
 
     return [
       {
-        name: "Pending",
+        name: 'Pending',
         value: allTransactions.filter(
           (t) => t.status === TransactionStatus.Pending
         ).length,
-        color: "#f59e0b",
+        color: '#f59e0b',
       },
       {
-        name: "Active",
+        name: 'Active',
         value: allTransactions.filter(
           (t) => t.status === TransactionStatus.Active
         ).length,
-        color: "#3b82f6",
+        color: '#3b82f6',
       },
       {
-        name: "Completed",
+        name: 'Completed',
         value: allTransactions.filter(
           (t) => t.status === TransactionStatus.Completed
         ).length,
-        color: "#10b981",
+        color: '#10b981',
       },
       {
-        name: "Rejected",
+        name: 'Rejected',
         value: allTransactions.filter(
           (t) => t.status === TransactionStatus.Rejected
         ).length,
-        color: "#ef4444",
+        color: '#ef4444',
       },
     ].filter((item) => item.value > 0);
   }, [allTransactions]);
@@ -76,22 +76,22 @@ export function DashboardCharts({
 
     return [
       {
-        name: "Pending",
+        name: 'Pending',
         value: allApprovals.filter((a) => a.status === ApprovalStatus.Pending)
           .length,
-        color: "#f59e0b",
+        color: '#f59e0b',
       },
       {
-        name: "Approved",
+        name: 'Approved',
         value: allApprovals.filter((a) => a.status === ApprovalStatus.Approved)
           .length,
-        color: "#10b981",
+        color: '#10b981',
       },
       {
-        name: "Rejected",
+        name: 'Rejected',
         value: allApprovals.filter((a) => a.status === ApprovalStatus.Rejected)
           .length,
-        color: "#ef4444",
+        color: '#ef4444',
       },
     ].filter((item) => item.value > 0);
   }, [allApprovals]);
@@ -101,12 +101,12 @@ export function DashboardCharts({
     if (!allTransactions) return [];
 
     return Array.from({ length: 7 }, (_, i) => {
-      const date = dayjs().subtract(6 - i, "day");
+      const date = dayjs().subtract(6 - i, 'day');
       const dayTransactions = allTransactions.filter((t) =>
-        dayjs.unix(t.timestamp).isSame(date, "day")
+        dayjs.unix(t.timestamp).isSame(date, 'day')
       );
       return {
-        date: date.format("MMM DD"),
+        date: date.format('MMM DD'),
         transactions: dayTransactions.length,
         amount: dayTransactions.reduce(
           (sum, t) => sum + parseFloat(t.amount),
@@ -121,12 +121,12 @@ export function DashboardCharts({
     if (!allApprovals) return [];
 
     return Array.from({ length: 7 }, (_, i) => {
-      const date = dayjs().subtract(6 - i, "day");
+      const date = dayjs().subtract(6 - i, 'day');
       const dayApprovals = allApprovals.filter((a) =>
-        dayjs.unix(a.timestamp).isSame(date, "day")
+        dayjs.unix(a.timestamp).isSame(date, 'day')
       );
       return {
-        date: date.format("MMM DD"),
+        date: date.format('MMM DD'),
         approvals: dayApprovals.length,
         pending: dayApprovals.filter((a) => a.status === ApprovalStatus.Pending)
           .length,
@@ -141,29 +141,29 @@ export function DashboardCharts({
   }, [allApprovals]);
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       {/* Status Distribution Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
         {/* Transaction Status Distribution */}
         <Card>
           <CardHeader>
             <CardTitle>Transaction Status Distribution</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className='h-64'>
+              <ResponsiveContainer width='100%' height='100%'>
                 <PieChart>
                   <Pie
                     data={transactionStatusData}
-                    cx="50%"
-                    cy="50%"
+                    cx='50%'
+                    cy='50%'
                     labelLine={false}
                     label={({ name, percent }) =>
                       `${name} ${((percent || 0) * 100).toFixed(0)}%`
                     }
                     outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
+                    fill='#8884d8'
+                    dataKey='value'
                   >
                     {transactionStatusData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
@@ -182,20 +182,20 @@ export function DashboardCharts({
             <CardTitle>Approval Status Distribution</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className='h-64'>
+              <ResponsiveContainer width='100%' height='100%'>
                 <PieChart>
                   <Pie
                     data={approvalStatusData}
-                    cx="50%"
-                    cy="50%"
+                    cx='50%'
+                    cy='50%'
                     labelLine={false}
                     label={({ name, percent }) =>
                       `${name} ${((percent || 0) * 100).toFixed(0)}%`
                     }
                     outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
+                    fill='#8884d8'
+                    dataKey='value'
                   >
                     {approvalStatusData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
@@ -210,35 +210,35 @@ export function DashboardCharts({
       </div>
 
       {/* Time Series Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
         {/* Recent Transactions Over Time */}
         <Card>
           <CardHeader>
             <CardTitle>Recent Transactions (Last 7 Days)</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className='h-64'>
+              <ResponsiveContainer width='100%' height='100%'>
                 <AreaChart data={recentTransactionsData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
+                  <CartesianGrid strokeDasharray='3 3' />
+                  <XAxis dataKey='date' />
                   <YAxis />
                   <Tooltip />
                   <Area
-                    type="monotone"
-                    dataKey="transactions"
-                    stroke="#3b82f6"
-                    fill="#3b82f6"
+                    type='monotone'
+                    dataKey='transactions'
+                    stroke='#3b82f6'
+                    fill='#3b82f6'
                     fillOpacity={0.3}
-                    name="Transactions"
+                    name='Transactions'
                   />
                   <Area
-                    type="monotone"
-                    dataKey="amount"
-                    stroke="#10b981"
-                    fill="#10b981"
+                    type='monotone'
+                    dataKey='amount'
+                    stroke='#10b981'
+                    fill='#10b981'
                     fillOpacity={0.3}
-                    name="Total Amount (ETH)"
+                    name='Total Amount (ETH)'
                   />
                 </AreaChart>
               </ResponsiveContainer>
@@ -252,16 +252,16 @@ export function DashboardCharts({
             <CardTitle>Recent Approvals (Last 7 Days)</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className='h-64'>
+              <ResponsiveContainer width='100%' height='100%'>
                 <BarChart data={recentApprovalsData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
+                  <CartesianGrid strokeDasharray='3 3' />
+                  <XAxis dataKey='date' />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="pending" fill="#f59e0b" name="Pending" />
-                  <Bar dataKey="approved" fill="#10b981" name="Approved" />
-                  <Bar dataKey="rejected" fill="#ef4444" name="Rejected" />
+                  <Bar dataKey='pending' fill='#f59e0b' name='Pending' />
+                  <Bar dataKey='approved' fill='#10b981' name='Approved' />
+                  <Bar dataKey='rejected' fill='#ef4444' name='Rejected' />
                 </BarChart>
               </ResponsiveContainer>
             </div>

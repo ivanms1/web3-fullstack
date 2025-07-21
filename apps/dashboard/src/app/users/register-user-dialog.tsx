@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import {
   Dialog,
   DialogContent,
@@ -12,34 +12,34 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@repo/ui/components/dialog";
-import { Button } from "@repo/ui/components/button";
-import { Input } from "@repo/ui/components/input";
-import { Label } from "@repo/ui/components/label";
+} from '@repo/ui/components/dialog';
+import { Button } from '@repo/ui/components/button';
+import { Input } from '@repo/ui/components/input';
+import { Label } from '@repo/ui/components/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@repo/ui/components/select";
+} from '@repo/ui/components/select';
 
-import { toast } from "sonner";
-import { Loader2, UserPlus } from "lucide-react";
+import { toast } from 'sonner';
+import { Loader2, UserPlus } from 'lucide-react';
 
-import { UserRole } from "@/types/user";
-import { useRegisterUser } from "@/services/user";
+import { UserRole } from '@/types/user';
+import { useRegisterUser } from '@/services/user';
 
 const registerUserSchema = z.object({
   walletAddress: z
     .string()
-    .min(1, "Wallet address is required")
-    .regex(/^0x[a-fA-F0-9]{40}$/, "Invalid wallet address format"),
+    .min(1, 'Wallet address is required')
+    .regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid wallet address format'),
   name: z
     .string()
-    .min(1, "Name is required")
-    .max(100, "Name must be less than 100 characters"),
-  email: z.string().min(1, "Email is required").email("Invalid email format"),
+    .min(1, 'Name is required')
+    .max(100, 'Name must be less than 100 characters'),
+  email: z.string().min(1, 'Email is required').email('Invalid email format'),
   role: z.nativeEnum(UserRole),
 });
 
@@ -62,9 +62,9 @@ export function RegisterUserDialog({ onSuccess }: RegisterUserDialogProps) {
   } = useForm<RegisterUserFormData>({
     resolver: zodResolver(registerUserSchema),
     defaultValues: {
-      walletAddress: "",
-      name: "",
-      email: "",
+      walletAddress: '',
+      name: '',
+      email: '',
       role: UserRole.Regular,
     },
   });
@@ -79,13 +79,13 @@ export function RegisterUserDialog({ onSuccess }: RegisterUserDialogProps) {
       },
       {
         onSuccess: () => {
-          toast.success("User registration has started processing");
+          toast.success('User registration has started processing');
           reset();
           setOpen(false);
           onSuccess?.();
         },
         onError: () => {
-          toast.error("Failed to register user");
+          toast.error('Failed to register user');
         },
       }
     );
@@ -102,11 +102,11 @@ export function RegisterUserDialog({ onSuccess }: RegisterUserDialogProps) {
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button>
-          <UserPlus className="w-4 h-4 mr-2" />
+          <UserPlus className='w-4 h-4 mr-2' />
           Add User
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
           <DialogTitle>Register New User</DialogTitle>
           <DialogDescription>
@@ -115,55 +115,55 @@ export function RegisterUserDialog({ onSuccess }: RegisterUserDialogProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="walletAddress">Wallet Address</Label>
+        <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+          <div className='space-y-2'>
+            <Label htmlFor='walletAddress'>Wallet Address</Label>
             <Input
-              id="walletAddress"
-              placeholder="0x..."
-              {...register("walletAddress")}
+              id='walletAddress'
+              placeholder='0x...'
+              {...register('walletAddress')}
             />
             {errors.walletAddress && (
-              <p className="text-sm text-destructive">
+              <p className='text-sm text-destructive'>
                 {errors.walletAddress.message}
               </p>
             )}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='name'>Name</Label>
             <Input
-              id="name"
+              id='name'
               placeholder="Enter user's full name"
-              {...register("name")}
+              {...register('name')}
             />
             {errors.name && (
-              <p className="text-sm text-destructive">{errors.name.message}</p>
+              <p className='text-sm text-destructive'>{errors.name.message}</p>
             )}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='email'>Email</Label>
             <Input
-              id="email"
-              type="email"
-              placeholder="user@example.com"
-              {...register("email")}
+              id='email'
+              type='email'
+              placeholder='user@example.com'
+              {...register('email')}
             />
             {errors.email && (
-              <p className="text-sm text-destructive">{errors.email.message}</p>
+              <p className='text-sm text-destructive'>{errors.email.message}</p>
             )}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="role">Role</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='role'>Role</Label>
             <Select
               onValueChange={(value) =>
-                setValue("role", Number(value) as UserRole)
+                setValue('role', Number(value) as UserRole)
               }
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select a role" />
+                <SelectValue placeholder='Select a role' />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value={UserRole.Regular.toString()}>
@@ -176,27 +176,27 @@ export function RegisterUserDialog({ onSuccess }: RegisterUserDialogProps) {
               </SelectContent>
             </Select>
             {errors.role && (
-              <p className="text-sm text-destructive">{errors.role.message}</p>
+              <p className='text-sm text-destructive'>{errors.role.message}</p>
             )}
           </div>
 
           <DialogFooter>
             <Button
-              type="button"
-              variant="outline"
+              type='button'
+              variant='outline'
               onClick={() => handleOpenChange(false)}
               disabled={isPending}
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isPending || isSuccess}>
+            <Button type='submit' disabled={isPending || isSuccess}>
               {isPending ? (
                 <>
-                  <Loader2 className="w-4 h-4 mr-2" />
+                  <Loader2 className='w-4 h-4 mr-2' />
                   Registering...
                 </>
               ) : (
-                "Register User"
+                'Register User'
               )}
             </Button>
           </DialogFooter>

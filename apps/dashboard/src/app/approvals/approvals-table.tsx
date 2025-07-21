@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Input } from "@repo/ui/components/input";
-import { DataTable } from "@repo/ui/components/data-table";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from 'react';
+import { Input } from '@repo/ui/components/input';
+import { DataTable } from '@repo/ui/components/data-table';
+import { useQuery } from '@tanstack/react-query';
 
-import { Approval } from "@/types/approval";
-import { COLUMNS } from "@/app/approvals/columns";
-import { approvalQueryKeys } from "@/services/approval/request";
-import { ApprovalDetailsDrawer } from "./approval-details-drawer";
+import { Approval } from '@/types/approval';
+import { COLUMNS } from '@/app/approvals/columns';
+import { approvalQueryKeys } from '@/services/approval/request';
+import { ApprovalDetailsDrawer } from './approval-details-drawer';
 
 export function ApprovalsTable() {
-  const [globalFilter, setGlobalFilter] = useState("");
+  const [globalFilter, setGlobalFilter] = useState('');
   const [selectedApproval, setSelectedApproval] = useState<Approval | null>(
     null
   );
@@ -48,31 +48,31 @@ export function ApprovalsTable() {
 
   if (isLoadingAll || isLoadingPending) {
     return (
-      <div className="space-y-3">
-        <div className="h-4 bg-muted rounded animate-pulse" />
-        <div className="h-4 bg-muted rounded animate-pulse" />
-        <div className="h-4 bg-muted rounded animate-pulse" />
+      <div className='space-y-3'>
+        <div className='h-4 bg-muted rounded animate-pulse' />
+        <div className='h-4 bg-muted rounded animate-pulse' />
+        <div className='h-4 bg-muted rounded animate-pulse' />
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
+    <div className='space-y-4'>
+      <div className='flex items-center justify-between'>
         <div>
-          <p className="text-sm text-muted-foreground">
-            {allApprovals?.length} total approvals / {pendingApprovals?.length}{" "}
+          <p className='text-sm text-muted-foreground'>
+            {allApprovals?.length} total approvals / {pendingApprovals?.length}{' '}
             pending
           </p>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className='flex items-center space-x-2'>
           <Input
-            placeholder="Search approvals..."
+            placeholder='Search approvals...'
             value={globalFilter}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setGlobalFilter(event.target.value)
             }
-            className="max-w-sm"
+            className='max-w-sm'
           />
         </div>
       </div>

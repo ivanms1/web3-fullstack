@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { EventListener } from "@/lib/event-listener";
-import { useWalletSession } from "./use-wallet-session";
-import { queryClient } from "@/lib/query-client";
+import { useEffect } from 'react';
+import { EventListener } from '@/lib/event-listener';
+import { useWalletSession } from './use-wallet-session';
+import { queryClient } from '@/lib/query-client';
 
 export function useEventListener() {
   const { currentAccount } = useWalletSession();
