@@ -62,7 +62,7 @@ export function TransactionDetailsDrawer({
   const handleCompleteTransaction = () => {
     completeTransaction(transaction, {
       onSuccess: () => {
-        toast.success('Transaction completed successfully');
+        toast.success('Transaction proccess has started');
         onOpenChange(false);
       },
       onError: () => {
