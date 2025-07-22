@@ -409,15 +409,11 @@ The app uses this environment variable:
 - Use conventional commit messages
 - Update documentation for new features
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🆘 Support
 
 If you encounter any issues:
 
-1. Check the [Issues](https://github.com/your-repo/issues) page
+1. Check the [Issues](https://github.com/ivanms1/web3-fullstack/issues) page
 2. Create a new issue with detailed information
 3. Include steps to reproduce the problem
 
