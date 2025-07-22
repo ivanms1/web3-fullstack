@@ -59,7 +59,7 @@ export function ProcessApprovalForm({
       },
       {
         onSuccess: () => {
-          toast.success('Approval process started');
+          toast.success('Approval process has started');
           reset();
           onSuccess();
         },
@@ -79,7 +79,7 @@ export function ProcessApprovalForm({
       },
       {
         onSuccess: () => {
-          toast.success('Approval rejected successfully');
+          toast.success('Rejection process has started');
           reset();
           onSuccess();
         },

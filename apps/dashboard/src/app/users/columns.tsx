@@ -117,6 +117,10 @@ export const getUserTransactionsColumns = (
       return <Badge variant={config.variant}>{config.label}</Badge>;
     },
     enableColumnFilter: true,
+    filterFn: (row, id, filterValue) => {
+      const status = row.getValue(id);
+      return status === +filterValue;
+    },
   },
   {
     accessorKey: 'from',

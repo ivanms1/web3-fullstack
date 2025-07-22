@@ -66,7 +66,7 @@ export const COLUMNS: ColumnDef<Approval>[] = [
     },
     enableColumnFilter: true,
     filterFn: (row, id, filterValue) => {
-      const status = row.getValue(id) as ApprovalStatus;
+      const status = row.getValue(id);
       return status === +filterValue;
     },
   },
