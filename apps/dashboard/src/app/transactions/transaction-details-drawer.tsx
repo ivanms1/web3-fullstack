@@ -17,6 +17,7 @@ import { CopyButton } from '@repo/ui/components/copy-button';
 
 import { Transaction, TransactionStatus } from '@/types/transaction';
 import { RequestApprovalForm } from './request-approval-form';
+import { useWalletSession } from '@/hooks/use-wallet-session';
 
 import { TRANSACTION_STATUS_CONFIG } from '@/const';
 
@@ -31,6 +32,7 @@ export function TransactionDetailsDrawer({
   open,
   onOpenChange,
 }: TransactionDetailsDrawerProps) {
+  const { user } = useWalletSession();
   if (!transaction) {
     return null;
   }
@@ -143,7 +145,8 @@ export function TransactionDetailsDrawer({
 
         <DrawerFooter>
           {transaction.status === TransactionStatus.Pending &&
-          !transaction.approvalId ? (
+          !transaction.approvalId &&
+          transaction.from === user?.walletAddress ? (
             <RequestApprovalForm
               transaction={transaction}
               onSuccess={handleFormSuccess}
