@@ -14,10 +14,13 @@ import { Badge } from '@repo/ui/components/badge';
 import { Button } from '@repo/ui/components/button';
 import { Separator } from '@repo/ui/components/separator';
 import { CopyButton } from '@repo/ui/components/copy-button';
+import { Loader2, CheckCircle } from 'lucide-react';
+import { toast } from 'sonner';
 
 import { Transaction, TransactionStatus } from '@/types/transaction';
 import { RequestApprovalForm } from './request-approval-form';
 import { useWalletSession } from '@/hooks/use-wallet-session';
+import { useCompleteTransaction } from '@/services/transaction';
 
 import { TRANSACTION_STATUS_CONFIG } from '@/const';
 
@@ -33,6 +36,9 @@ export function TransactionDetailsDrawer({
   onOpenChange,
 }: TransactionDetailsDrawerProps) {
   const { user } = useWalletSession();
+  const { mutate: completeTransaction, isPending: isCompleting } =
+    useCompleteTransaction();
+
   if (!transaction) {
     return null;
   }
@@ -51,6 +57,18 @@ export function TransactionDetailsDrawer({
 
   const handleFormCancel = () => {
     onOpenChange(false);
+  };
+
+  const handleCompleteTransaction = () => {
+    completeTransaction(transaction, {
+      onSuccess: () => {
+        toast.success('Transaction completed successfully');
+        onOpenChange(false);
+      },
+      onError: () => {
+        toast.error('Failed to complete transaction');
+      },
+    });
   };
 
   return (
@@ -152,6 +170,32 @@ export function TransactionDetailsDrawer({
               onSuccess={handleFormSuccess}
               onCancel={handleFormCancel}
             />
+          ) : transaction.status === TransactionStatus.Active &&
+            transaction.from === user?.walletAddress ? (
+            <div className='space-y-2'>
+              <Button
+                onClick={handleCompleteTransaction}
+                disabled={isCompleting}
+                className='w-full'
+              >
+                {isCompleting ? (
+                  <>
+                    <Loader2 className='w-4 h-4 mr-2 animate-spin' />
+                    Completing...
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle className='w-4 h-4 mr-2' />
+                    Complete Transaction
+                  </>
+                )}
+              </Button>
+              <DrawerClose asChild>
+                <Button variant='outline' className='w-full'>
+                  Close
+                </Button>
+              </DrawerClose>
+            </div>
           ) : (
             <DrawerClose asChild>
               <Button variant='outline' className='w-full'>

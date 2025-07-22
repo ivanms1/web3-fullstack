@@ -27,8 +27,13 @@ export function useCreateTransaction() {
 }
 
 export function useCompleteTransaction() {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (transaction: Transaction) =>
       transactionAPI.completeTransaction(transaction.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(transactionQueryKeys.getAllTransactions());
+      queryClient.invalidateQueries(transactionQueryKeys.getTransactionCount());
+    },
   });
 }
