@@ -56,7 +56,7 @@ export function TransactionsTable() {
   // Create status filter options from the status config
   const statusFilterOptions = Object.entries(TRANSACTION_STATUS_CONFIG).map(
     ([status, config]) => ({
-      value: +status,
+      value: status,
       label: config.label,
     })
   );
