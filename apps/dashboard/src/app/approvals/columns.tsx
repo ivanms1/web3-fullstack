@@ -16,6 +16,7 @@ export const COLUMNS: ColumnDef<Approval>[] = [
     cell: ({ row }) => (
       <div className='font-mono'>#{row.getValue('transactionId')}</div>
     ),
+    enableColumnFilter: true,
   },
   {
     accessorKey: 'requester',
@@ -25,6 +26,7 @@ export const COLUMNS: ColumnDef<Approval>[] = [
         {truncateWalletAddress(row.getValue('requester'))}
       </div>
     ),
+    enableColumnFilter: true,
   },
   {
     accessorKey: 'approver',
@@ -34,6 +36,7 @@ export const COLUMNS: ColumnDef<Approval>[] = [
         {truncateWalletAddress(row.getValue('approver'))}
       </div>
     ),
+    enableColumnFilter: true,
   },
   {
     accessorKey: 'approvalType',
@@ -47,6 +50,7 @@ export const COLUMNS: ColumnDef<Approval>[] = [
       };
       return <Badge variant='secondary'>{typeLabels[type] || 'Unknown'}</Badge>;
     },
+    enableColumnFilter: true,
   },
   {
     accessorKey: 'status',
@@ -59,6 +63,11 @@ export const COLUMNS: ColumnDef<Approval>[] = [
       };
       return <Badge variant={config.variant}>{config.label}</Badge>;
     },
+    enableColumnFilter: true,
+    filterFn: (row, id, filterValue) => {
+      const status = row.getValue(id) as ApprovalStatus;
+      return status === +filterValue;
+    },
   },
   {
     accessorKey: 'reason',
@@ -68,16 +77,22 @@ export const COLUMNS: ColumnDef<Approval>[] = [
         {row.getValue('reason')}
       </div>
     ),
+    enableColumnFilter: true,
   },
   {
     accessorKey: 'timestamp',
     header: 'Created',
     cell: ({ row }) => {
       const timestamp = row.getValue('timestamp') as number;
-      const date = dayjs(timestamp * 1000);
       return (
-        <div className='text-sm text-muted-foreground'>{date.fromNow()}</div>
+        <div className='text-sm'>
+          <div>{dayjs(timestamp * 1000).format('MMM D, YYYY')}</div>
+          <div className='text-xs text-muted-foreground'>
+            {dayjs(timestamp * 1000).fromNow()}
+          </div>
+        </div>
       );
     },
+    enableColumnFilter: true,
   },
 ];

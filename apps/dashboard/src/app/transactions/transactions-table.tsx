@@ -1,21 +1,28 @@
 'use client';
 
 import { useState } from 'react';
+import {
+  getCoreRowModel,
+  getFilteredRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
 
-import { Input } from '@repo/ui/components/input';
 import { DataTable } from '@repo/ui/components/data-table';
 import { useQuery } from '@tanstack/react-query';
 
 import { TransactionDetailsDrawer } from './transaction-details-drawer';
+import { TableToolbar } from '@/components/table-toolbar';
+import { useTableState } from '@/hooks/use-table-state';
 
 import { COLUMNS } from '@/app/transactions/columns';
 import { transactionQueryKeys } from '@/services/transaction/request';
 import { contractManager } from '@/api/contract-manager';
 
 import { Transaction } from '@/types/transaction';
+import { TRANSACTION_STATUS_CONFIG } from '@/const';
 
 export function TransactionsTable() {
-  const [globalFilter, setGlobalFilter] = useState('');
+  const tableState = useTableState();
   const [selectedTransaction, setSelectedTransaction] =
     useState<Transaction | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -26,24 +33,33 @@ export function TransactionsTable() {
     enabled: contractManager.isInitialized(),
   });
 
-  // Filter data based on global filter
-  const filteredData = allTransactions?.filter((transaction: Transaction) => {
-    if (!globalFilter) return true;
-
-    const searchTerm = globalFilter.toLowerCase();
-    return (
-      transaction.id.toString().includes(searchTerm) ||
-      transaction.from.toLowerCase().includes(searchTerm) ||
-      transaction.to.toLowerCase().includes(searchTerm) ||
-      transaction.description.toLowerCase().includes(searchTerm) ||
-      transaction.amount.includes(searchTerm)
-    );
+  const table = useReactTable({
+    data: allTransactions || [],
+    columns: COLUMNS,
+    onColumnFiltersChange: tableState.setColumnFilters,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: tableState.setColumnVisibility,
+    onRowSelectionChange: tableState.setRowSelection,
+    state: {
+      columnFilters: tableState.columnFilters,
+      columnVisibility: tableState.columnVisibility,
+      rowSelection: tableState.rowSelection,
+    },
   });
 
   const handleRowClick = (transaction: Transaction) => {
     setSelectedTransaction(transaction);
     setDrawerOpen(true);
   };
+
+  // Create status filter options from the status config
+  const statusFilterOptions = Object.entries(TRANSACTION_STATUS_CONFIG).map(
+    ([status, config]) => ({
+      value: +status,
+      label: config.label,
+    })
+  );
 
   if (isLoadingAll) {
     return (
@@ -57,28 +73,39 @@ export function TransactionsTable() {
 
   return (
     <div className='space-y-4'>
-      <div className='flex items-center justify-between'>
-        <div>
-          <p className='text-sm text-muted-foreground'>
-            {allTransactions?.length} total transactions
-          </p>
-        </div>
-        <div className='flex items-center space-x-2'>
-          <Input
-            placeholder='Search transactions...'
-            value={globalFilter}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setGlobalFilter(event.target.value)
-            }
-            className='max-w-sm'
-          />
-        </div>
-      </div>
+      <TableToolbar
+        table={table}
+        filters={{
+          textFilter: [
+            {
+              column: 'description',
+              placeholder: 'Search by description',
+            },
+            {
+              column: 'from',
+              placeholder: 'Search by from',
+            },
+            {
+              column: 'to',
+              placeholder: 'Search by to',
+            },
+          ],
+          selectFilter: [
+            {
+              column: 'status',
+              placeholder: 'Filter by status',
+              options: statusFilterOptions,
+            },
+          ],
+        }}
+        totalCount={allTransactions?.length}
+      />
 
       <DataTable
         columns={COLUMNS}
-        data={filteredData || []}
+        data={allTransactions || []}
         onRowClick={handleRowClick}
+        table={table}
       />
 
       <TransactionDetailsDrawer

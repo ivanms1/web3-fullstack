@@ -1,7 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Input } from '@repo/ui/components/input';
+import {
+  getCoreRowModel,
+  getFilteredRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
+
 import { DataTable } from '@repo/ui/components/data-table';
 import { useQuery } from '@tanstack/react-query';
 
@@ -9,9 +14,13 @@ import { Approval } from '@/types/approval';
 import { COLUMNS } from '@/app/approvals/columns';
 import { approvalQueryKeys } from '@/services/approval/request';
 import { ApprovalDetailsDrawer } from './approval-details-drawer';
+import { TableToolbar } from '@/components/table-toolbar';
+import { useTableState } from '@/hooks/use-table-state';
+
+import { APPROVAL_STATUS_CONFIG } from '@/const';
 
 export function ApprovalsTable() {
-  const [globalFilter, setGlobalFilter] = useState('');
+  const tableState = useTableState();
   const [selectedApproval, setSelectedApproval] = useState<Approval | null>(
     null
   );
@@ -27,24 +36,33 @@ export function ApprovalsTable() {
     ...approvalQueryKeys.getPendingApprovals(),
   });
 
-  // Filter data based on global filter
-  const filteredData = allApprovals?.filter((approval: Approval) => {
-    if (!globalFilter) return true;
-
-    const searchTerm = globalFilter.toLowerCase();
-    return (
-      approval.id.toString().includes(searchTerm) ||
-      approval.transactionId.toString().includes(searchTerm) ||
-      approval.requester.toLowerCase().includes(searchTerm) ||
-      approval.approver.toLowerCase().includes(searchTerm) ||
-      approval.reason.toLowerCase().includes(searchTerm)
-    );
+  const table = useReactTable({
+    data: allApprovals || [],
+    columns: COLUMNS,
+    onColumnFiltersChange: tableState.setColumnFilters,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: tableState.setColumnVisibility,
+    onRowSelectionChange: tableState.setRowSelection,
+    state: {
+      columnFilters: tableState.columnFilters,
+      columnVisibility: tableState.columnVisibility,
+      rowSelection: tableState.rowSelection,
+    },
   });
 
   const handleRowClick = (approval: Approval) => {
     setSelectedApproval(approval);
     setDrawerOpen(true);
   };
+
+  // Create status filter options
+  const statusFilterOptions = Object.entries(APPROVAL_STATUS_CONFIG).map(
+    ([status, config]) => ({
+      value: status,
+      label: config.label,
+    })
+  );
 
   if (isLoadingAll || isLoadingPending) {
     return (
@@ -61,26 +79,45 @@ export function ApprovalsTable() {
       <div className='flex items-center justify-between'>
         <div>
           <p className='text-sm text-muted-foreground'>
-            {allApprovals?.length} total approvals / {pendingApprovals?.length}{' '}
-            pending
+            {table.getFilteredRowModel().rows.length} of {allApprovals?.length}{' '}
+            total approvals / {pendingApprovals?.length} pending
           </p>
-        </div>
-        <div className='flex items-center space-x-2'>
-          <Input
-            placeholder='Search approvals...'
-            value={globalFilter}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setGlobalFilter(event.target.value)
-            }
-            className='max-w-sm'
-          />
         </div>
       </div>
 
+      <TableToolbar
+        table={table}
+        filters={{
+          textFilter: [
+            {
+              column: 'reason',
+              placeholder: 'Search by reason',
+            },
+            {
+              column: 'requester',
+              placeholder: 'Search by requester',
+            },
+            {
+              column: 'approver',
+              placeholder: 'Search by approver',
+            },
+          ],
+          selectFilter: [
+            {
+              column: 'status',
+              placeholder: 'Filter by status',
+              options: statusFilterOptions,
+            },
+          ],
+        }}
+        totalCount={allApprovals?.length}
+      />
+
       <DataTable
         columns={COLUMNS}
-        data={filteredData || []}
+        data={allApprovals || []}
         onRowClick={handleRowClick}
+        table={table}
       />
 
       <ApprovalDetailsDrawer

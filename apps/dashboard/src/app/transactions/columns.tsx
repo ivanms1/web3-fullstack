@@ -13,6 +13,7 @@ export const COLUMNS: ColumnDef<Transaction>[] = [
     accessorKey: 'id',
     header: 'ID',
     cell: ({ row }) => <div className='font-mono'>#{row.getValue('id')}</div>,
+    enableColumnFilter: true,
   },
   {
     accessorKey: 'from',
@@ -22,6 +23,7 @@ export const COLUMNS: ColumnDef<Transaction>[] = [
         {truncateWalletAddress(row.getValue('from'))}
       </div>
     ),
+    enableColumnFilter: true,
   },
   {
     accessorKey: 'to',
@@ -31,6 +33,7 @@ export const COLUMNS: ColumnDef<Transaction>[] = [
         {truncateWalletAddress(row.getValue('to'))}
       </div>
     ),
+    enableColumnFilter: true,
   },
   {
     accessorKey: 'amount',
@@ -40,6 +43,7 @@ export const COLUMNS: ColumnDef<Transaction>[] = [
       const formattedAmount = `${parseFloat(amount).toLocaleString()} MT`;
       return <div className='font-medium'>{formattedAmount}</div>;
     },
+    enableColumnFilter: true,
   },
   {
     accessorKey: 'description',
@@ -52,6 +56,7 @@ export const COLUMNS: ColumnDef<Transaction>[] = [
         {row.getValue('description')}
       </div>
     ),
+    enableColumnFilter: true,
   },
   {
     accessorKey: 'status',
@@ -65,16 +70,26 @@ export const COLUMNS: ColumnDef<Transaction>[] = [
       };
       return <Badge variant={config.variant}>{config.label}</Badge>;
     },
+    enableColumnFilter: true,
+    filterFn: (row, id, filterValue) => {
+      const status = row.getValue(id) as TransactionStatus;
+      return status === +filterValue;
+    },
   },
   {
     accessorKey: 'timestamp',
-    header: 'Created',
+    header: 'Date',
     cell: ({ row }) => {
       const timestamp = row.getValue('timestamp') as number;
-      const date = dayjs(timestamp * 1000);
       return (
-        <div className='text-sm text-muted-foreground'>{date.fromNow()}</div>
+        <div className='text-sm'>
+          <div>{dayjs(timestamp * 1000).format('MMM D, YYYY')}</div>
+          <div className='text-xs text-muted-foreground'>
+            {dayjs(timestamp * 1000).fromNow()}
+          </div>
+        </div>
       );
     },
+    enableColumnFilter: true,
   },
 ];

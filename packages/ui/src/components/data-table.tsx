@@ -5,6 +5,7 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  Table as TableInstance,
 } from '@tanstack/react-table';
 
 import {
@@ -20,18 +21,22 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   onRowClick?: (row: TData) => void;
+  table?: TableInstance<TData>;
 }
 
 function DataTable<TData, TValue>({
   columns,
   data,
   onRowClick,
+  table: externalTable,
 }: DataTableProps<TData, TValue>) {
-  const table = useReactTable({
+  const internalTable = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const table = externalTable || internalTable;
 
   return (
     <div className='rounded-md border overflow-x-auto max-sm:w-[calc(100vw-48px)]'>
