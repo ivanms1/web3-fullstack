@@ -12,6 +12,12 @@ import { APPROVAL_STATUS_CONFIG } from '@/const';
 
 export const COLUMNS: ColumnDef<Approval>[] = [
   {
+    accessorKey: 'id',
+    header: 'ID',
+    cell: ({ row }) => <div className='font-mono'>#{row.getValue('id')}</div>,
+    enableColumnFilter: true,
+  },
+  {
     accessorKey: 'transactionId',
     header: 'Transaction ID',
     cell: ({ row }) => (
