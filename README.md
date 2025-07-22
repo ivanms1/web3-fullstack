@@ -29,7 +29,7 @@ This is a [Turborepo](https://turborepo.com/) monorepo containing:
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone git@github.com:ivanms1/web3-fullstack.git
 cd web3-fullstack
 
 # Install dependencies
