@@ -2,6 +2,19 @@
 
 require('@testing-library/jest-dom');
 
+// Mock environment variables
+process.env.NEXT_PUBLIC_DEPLOYMENT_INFO = JSON.stringify({
+  network: 'localhost',
+  contracts: {
+    FinancialPlatform: '0x1234567890123456789012345678901234567890',
+    MockToken: '0x0987654321098765432109876543210987654321',
+  },
+  abis: {
+    FinancialPlatform: [],
+    MockToken: [],
+  },
+});
+
 // Mock window.matchMedia for next-themes
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

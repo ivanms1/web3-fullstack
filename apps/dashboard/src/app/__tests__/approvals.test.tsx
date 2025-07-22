@@ -76,7 +76,7 @@ describe('ApprovalsPage', () => {
 
     // Wait for the data to load and check that approval components are rendered
     await waitFor(() => {
-      expect(screen.getByText(/2.*total approvals/)).toBeInTheDocument();
+      expect(screen.getByText(/2.*total rows/)).toBeInTheDocument();
     });
   });
 
@@ -98,7 +98,7 @@ describe('ApprovalsPage', () => {
     render(<ApprovalsPage />);
 
     await waitFor(() => {
-      expect(screen.getByText(/0.*total approvals/)).toBeInTheDocument();
+      expect(screen.getByText(/0.*total rows/)).toBeInTheDocument();
     });
   });
 

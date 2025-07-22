@@ -99,7 +99,7 @@ describe('TransactionsPage', () => {
 
     // Wait for the data to load and check that transactions are displayed
     await waitFor(() => {
-      expect(screen.getByText('2 total transactions')).toBeInTheDocument();
+      expect(screen.getByText(/2.*total rows/)).toBeInTheDocument();
     });
 
     expect(screen.getByText('Test transaction 1')).toBeInTheDocument();
@@ -124,7 +124,7 @@ describe('TransactionsPage', () => {
     renderWithQueryClient(<TransactionsPage />);
 
     await waitFor(() => {
-      expect(screen.getByText('0 total transactions')).toBeInTheDocument();
+      expect(screen.getByText(/0.*total rows/)).toBeInTheDocument();
     });
   });
 
