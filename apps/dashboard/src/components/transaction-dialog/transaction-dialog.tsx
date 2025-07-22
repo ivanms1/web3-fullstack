@@ -90,6 +90,7 @@ export function TransactionDialog({ open, setOpen }: TransactionDialogProps) {
 
   const handleCancel = () => {
     reset();
+    resetCreateTransaction();
     setOpen(false);
   };
 

@@ -13,9 +13,9 @@ import {
 import { Badge } from '@repo/ui/components/badge';
 import { Button } from '@repo/ui/components/button';
 import { Separator } from '@repo/ui/components/separator';
+import { CopyButton } from '@repo/ui/components/copy-button';
 
 import { Transaction, TransactionStatus } from '@/types/transaction';
-import { truncateWalletAddress } from '@/utils/truncateWalletAddress';
 import { RequestApprovalForm } from './request-approval-form';
 
 import { TRANSACTION_STATUS_CONFIG } from '@/const';
@@ -88,19 +88,15 @@ export function TransactionDetailsDrawer({
               <p className='text-sm font-medium text-muted-foreground'>
                 From Address
               </p>
-              <p className='font-mono text-sm mt-1'>{transaction.from}</p>
-              <p className='text-xs text-muted-foreground mt-1'>
-                {truncateWalletAddress(transaction.from)}
-              </p>
+              <CopyButton text={transaction.from}>
+                {transaction.from}
+              </CopyButton>
             </div>
             <div>
               <p className='text-sm font-medium text-muted-foreground'>
                 To Address
               </p>
-              <p className='font-mono text-sm mt-1'>{transaction.to}</p>
-              <p className='text-xs text-muted-foreground mt-1'>
-                {truncateWalletAddress(transaction.to)}
-              </p>
+              <CopyButton text={transaction.to}>{transaction.to}</CopyButton>
             </div>
           </div>
 

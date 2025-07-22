@@ -7,6 +7,7 @@ import { Badge } from '@repo/ui/components/badge';
 import { Transaction, TransactionStatus } from '@/types/transaction';
 import { truncateWalletAddress } from '@/utils/truncateWalletAddress';
 import { TRANSACTION_STATUS_CONFIG } from '@/const';
+import { CopyButton } from '@repo/ui/components/copy-button';
 
 export const COLUMNS: ColumnDef<Transaction>[] = [
   {
@@ -19,9 +20,9 @@ export const COLUMNS: ColumnDef<Transaction>[] = [
     accessorKey: 'from',
     header: 'From',
     cell: ({ row }) => (
-      <div className='font-mono'>
-        {truncateWalletAddress(row.getValue('from'))}
-      </div>
+      <CopyButton text={row.getValue('from') as string}>
+        {truncateWalletAddress(row.getValue('from') as string)}
+      </CopyButton>
     ),
     enableColumnFilter: true,
   },
@@ -30,7 +31,9 @@ export const COLUMNS: ColumnDef<Transaction>[] = [
     header: 'To',
     cell: ({ row }) => (
       <div className='font-mono'>
-        {truncateWalletAddress(row.getValue('to'))}
+        <CopyButton text={row.getValue('to') as string}>
+          {truncateWalletAddress(row.getValue('to') as string)}
+        </CopyButton>
       </div>
     ),
     enableColumnFilter: true,

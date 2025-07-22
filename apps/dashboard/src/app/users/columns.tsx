@@ -2,6 +2,7 @@ import { Badge } from '@repo/ui/components/badge';
 import { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 import { ArrowDownLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { CopyButton } from '@repo/ui/components/copy-button';
 
 import { TRANSACTION_STATUS_CONFIG } from '@/const';
 import { Transaction, TransactionStatus } from '@/types/transaction';
@@ -121,9 +122,9 @@ export const getUserTransactionsColumns = (
     accessorKey: 'from',
     header: 'From',
     cell: ({ row }) => (
-      <span className='font-mono text-sm'>
-        {truncateWalletAddress(row.getValue('from'))}
-      </span>
+      <CopyButton text={row.getValue('from') as string}>
+        {truncateWalletAddress(row.getValue('from') as string)}
+      </CopyButton>
     ),
     enableColumnFilter: true,
   },
@@ -131,9 +132,9 @@ export const getUserTransactionsColumns = (
     accessorKey: 'to',
     header: 'To',
     cell: ({ row }) => (
-      <span className='font-mono text-sm'>
-        {truncateWalletAddress(row.getValue('to'))}
-      </span>
+      <CopyButton text={row.getValue('to') as string}>
+        {truncateWalletAddress(row.getValue('to') as string)}
+      </CopyButton>
     ),
     enableColumnFilter: true,
   },

@@ -3,6 +3,7 @@
 import { dayjs } from '@/lib/dayjs';
 import { ColumnDef } from '@tanstack/react-table';
 import { Badge } from '@repo/ui/components/badge';
+import { CopyButton } from '@repo/ui/components/copy-button';
 
 import { truncateWalletAddress } from '@/utils/truncateWalletAddress';
 
@@ -22,9 +23,9 @@ export const COLUMNS: ColumnDef<Approval>[] = [
     accessorKey: 'requester',
     header: 'Requester',
     cell: ({ row }) => (
-      <div className='font-mono'>
-        {truncateWalletAddress(row.getValue('requester'))}
-      </div>
+      <CopyButton text={row.getValue('requester') as string}>
+        {truncateWalletAddress(row.getValue('requester') as string)}
+      </CopyButton>
     ),
     enableColumnFilter: true,
   },
@@ -32,9 +33,9 @@ export const COLUMNS: ColumnDef<Approval>[] = [
     accessorKey: 'approver',
     header: 'Approver',
     cell: ({ row }) => (
-      <div className='font-mono'>
-        {truncateWalletAddress(row.getValue('approver'))}
-      </div>
+      <CopyButton text={row.getValue('approver') as string}>
+        {truncateWalletAddress(row.getValue('approver') as string)}
+      </CopyButton>
     ),
     enableColumnFilter: true,
   },

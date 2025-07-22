@@ -76,15 +76,6 @@ export function ApprovalsTable() {
 
   return (
     <div className='space-y-4'>
-      <div className='flex items-center justify-between'>
-        <div>
-          <p className='text-sm text-muted-foreground'>
-            {table.getFilteredRowModel().rows.length} of {allApprovals?.length}{' '}
-            total approvals / {pendingApprovals?.length} pending
-          </p>
-        </div>
-      </div>
-
       <TableToolbar
         table={table}
         filters={{

@@ -12,12 +12,15 @@ import {
 import { Badge } from '@repo/ui/components/badge';
 import { Button } from '@repo/ui/components/button';
 import { Separator } from '@repo/ui/components/separator';
+import { CopyButton } from '@repo/ui/components/copy-button';
 
 import { Approval, ApprovalStatus, ApprovalType } from '@/types/approval';
 import { useWalletSession } from '@/hooks/use-wallet-session';
 import { ProcessApprovalForm } from './process-approval-form';
 import { dayjs } from '@/lib/dayjs';
 import { UserRole } from '@/types/user';
+
+import { truncateWalletAddress } from '@/utils/truncateWalletAddress';
 
 const TYPE_LABELS = {
   [ApprovalType.Transaction]: 'Transaction',
@@ -112,13 +115,17 @@ export function ApprovalDetailsDrawer({
               <p className='text-sm font-medium text-muted-foreground'>
                 Requester
               </p>
-              <p className='font-mono text-sm mt-1'>{approval.requester}</p>
+              <CopyButton text={approval.requester}>
+                {approval.requester}
+              </CopyButton>
             </div>
             <div>
               <p className='text-sm font-medium text-muted-foreground'>
                 Approver
               </p>
-              <p className='font-mono text-sm mt-1'>{approval.approver}</p>
+              <CopyButton text={approval.approver}>
+                {approval.approver}
+              </CopyButton>
             </div>
           </div>
 
