@@ -2,6 +2,8 @@
 
 import { usePathname } from 'next/navigation';
 import { SidebarProvider } from '@repo/ui/components/sidebar';
+import { Alert, AlertDescription } from '@repo/ui/components/alert';
+import { Button } from '@repo/ui/components/button';
 
 import { AppSidebar } from '@/components/sidebar/app-sidebar';
 import { SiteHeader } from '@/components/header/site-header';
@@ -11,7 +13,6 @@ import { useEventListener } from '@/hooks/use-event-listener';
 import { useNetworkStatus } from '@/hooks/use-network-status';
 
 import { AlertCircleIcon, Loader2Icon } from 'lucide-react';
-import { Alert, AlertDescription } from '@repo/ui/components/alert';
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -22,24 +23,33 @@ export function LayoutWrapper({ children, defaultOpen }: LayoutWrapperProps) {
   const { isInitializing } = useWalletSession();
   const { isValidNetwork, expectedNetwork } = useNetworkStatus();
 
+  const pathname = usePathname();
+
   useEventListener();
 
-  const pathname = usePathname();
   const isLoginPage = pathname === '/login';
 
   if (isLoginPage) {
     return <>{children}</>;
   }
 
-  if (!isValidNetwork) {
+  if (!isValidNetwork && !isInitializing) {
     return (
-      <div className='flex items-center justify-center h-screen'>
+      <div className='flex flex-col gap-2 items-center justify-center h-screen'>
         <Alert className='w-fit'>
           <AlertCircleIcon className='h-4 w-4' />
           <AlertDescription>
             Please connect to {expectedNetwork?.name} network
           </AlertDescription>
         </Alert>
+        <Button
+          size='lg'
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
+          Reload
+        </Button>
       </div>
     );
   }
