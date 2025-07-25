@@ -32,8 +32,8 @@ export default function HelpPage() {
                 </h4>
                 <p className='text-sm text-muted-foreground'>
                   Click on the wallet icon in the top right corner and follow
-                  the prompts to connect your preferred wallet. You'll need to
-                  be registered as a user to access platform features.
+                  the prompts to connect your preferred wallet. You&apos;ll need
+                  to be registered as a user to access platform features.
                 </p>
               </div>
 
@@ -42,9 +42,10 @@ export default function HelpPage() {
                   How do I create a transaction?
                 </h4>
                 <p className='text-sm text-muted-foreground'>
-                  Navigate to the Transactions page and use the "Request
-                  Approval" form to create a new transaction. You'll need to
-                  specify the recipient address, amount, and description.
+                  Navigate to the Transactions page and use the &quot;Request
+                  Approval&quot; form to create a new transaction. You&apos;ll
+                  need to specify the recipient address, amount, and
+                  description.
                 </p>
               </div>
 
@@ -172,8 +173,8 @@ export default function HelpPage() {
                   Have suggestions for new features or improvements?
                 </p>
                 <p className='text-sm text-muted-foreground'>
-                  Reach out to the development team through your organization's
-                  designated channels.
+                  Reach out to the development team through your
+                  organization&apos;s designated channels.
                 </p>
               </div>
 

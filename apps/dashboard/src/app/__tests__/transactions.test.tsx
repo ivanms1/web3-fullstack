@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render } from '@testing-library/react';
 import TransactionsPage from '../transactions/page';
-import { Transaction, TransactionStatus } from '@/types/transaction';
+import { TransactionStatus } from '@/types/transaction';
 
 // Mock the contract manager
 jest.mock('@/api/contract-manager', () => ({

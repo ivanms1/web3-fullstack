@@ -2,7 +2,6 @@
 
 import { LogOut, MoreVertical, User } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Avatar, AvatarFallback } from '@repo/ui/components/avatar';
 import {

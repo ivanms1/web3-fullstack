@@ -31,11 +31,6 @@ export function ApprovalsTable() {
     ...approvalQueryKeys.getAllApprovals(),
   });
 
-  // Fetch pending approvals
-  const { data: pendingApprovals, isLoading: isLoadingPending } = useQuery({
-    ...approvalQueryKeys.getPendingApprovals(),
-  });
-
   const table = useReactTable({
     data: allApprovals || [],
     columns: COLUMNS,
@@ -64,7 +59,7 @@ export function ApprovalsTable() {
     })
   );
 
-  if (isLoadingAll || isLoadingPending) {
+  if (isLoadingAll) {
     return (
       <div className='space-y-3'>
         <div className='h-4 bg-muted rounded animate-pulse' />

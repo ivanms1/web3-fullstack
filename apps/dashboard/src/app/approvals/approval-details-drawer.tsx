@@ -20,8 +20,6 @@ import { ProcessApprovalForm } from './process-approval-form';
 import { dayjs } from '@/lib/dayjs';
 import { UserRole } from '@/types/user';
 
-import { truncateWalletAddress } from '@/utils/truncateWalletAddress';
-
 const TYPE_LABELS = {
   [ApprovalType.Transaction]: 'Transaction',
   [ApprovalType.UserRole]: 'User Role',
